@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coach HDV</title>
+<meta name="description" content="Progresser à Clash of Clans : quand monter d'HDV, quoi améliorer en premier (spécial Hammer Jam), compos et plans d'attaque par HDV, analyse de screens du village.">
+<meta name="theme-color" content="#13222A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect x='1' y='1' width='32' height='32' rx='9' fill='%2313222A'/%3E%3Cg transform='rotate(-38 17 17)'%3E%3Crect x='15.4' y='12' width='3.2' height='16' rx='1.4' fill='%23F0B429'/%3E%3Crect x='9' y='7' width='16' height='7' rx='2' fill='%23F8FAFB'/%3E%3Crect x='9' y='7' width='4' height='7' rx='1.5' fill='%23F0B429'/%3E%3C/g%3E%3C/svg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Figtree:wght@400;500;600;700&family=Lilita+One&display=swap">
+<style>
+/* Layout: sticky header with tab strip; each tab is one working column that splits in two from 900px. The only loud accent lives in the event strip (hazard stripes + elixir). */
+:root{
+  --bg:#E7EDF0; --surface:#F8FAFB; --surface-2:#DAE4E8; --ink:#13222A; --muted:#4F6470; --line:#C2CFD5;
+  --gold:#8F5D00; --gold-fill:#F0B429; --on-gold:#1E1500;
+  --elixir:#A3216F; --elixir-soft:#F6DCEB;
+  --good:#1D7448; --good-soft:#D5EDE0; --warn:#9E5600; --warn-soft:#F7E5CB; --bad:#AE271E; --bad-soft:#F6D9D6;
+  --shadow:0 1px 2px rgba(19,34,42,.06),0 6px 18px rgba(19,34,42,.07);
+  --f-display:"Lilita One","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D161B; --surface:#14212A; --surface-2:#1B2C36; --ink:#E6EDF0; --muted:#8FA3AD; --line:#283B45;
+  --gold:#F0B429; --gold-fill:#F0B429; --on-gold:#1E1500;
+  --elixir:#E05AAE; --elixir-soft:#3A1630;
+  --good:#4CC38A; --good-soft:#12301F; --warn:#F2A541; --warn-soft:#382811; --bad:#F27366; --bad-soft:#3B1916;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.28);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0D161B; --surface:#14212A; --surface-2:#1B2C36; --ink:#E6EDF0; --muted:#8FA3AD; --line:#283B45;
+  --gold:#F0B429; --gold-fill:#F0B429; --on-gold:#1E1500;
+  --elixir:#E05AAE; --elixir-soft:#3A1630;
+  --good:#4CC38A; --good-soft:#12301F; --warn:#F2A541; --warn-soft:#382811; --bad:#F27366; --bad-soft:#3B1916;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.28);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;letter-spacing:.2px;text-wrap:balance;margin:0;line-height:1.1}
+h2{font-size:1.45rem}
+h3{font-size:1.12rem}
+p{margin:0}
+a{color:var(--gold)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold-fill);outline-offset:2px;border-radius:6px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-num);font-weight:600;text-transform:uppercase;letter-spacing:.09em;font-size:.8rem;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{flex:none}
+.brand h1{font-size:1.5rem}
+.brand .tagline{font-size:.8rem;color:var(--muted);line-height:1.2}
+.vchip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 6px 4px 12px;cursor:pointer;white-space:nowrap}
+.vchip .th{font-family:var(--f-display);font-size:1rem}
+.vchip .sep{width:1px;height:16px;background:var(--line)}
+.badge{font-family:var(--f-num);font-weight:700;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--surface-2);color:var(--muted)}
+.badge.ex{background:var(--warn-soft);color:var(--warn)}
+.badge.ok{background:var(--good-soft);color:var(--good)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-bottom:-1px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;padding:10px 12px 11px;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--gold-fill)}
+
+/* Event strip */
+.strip{position:relative;display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-radius:var(--r);background:var(--elixir-soft);color:var(--ink);padding:12px 14px 12px 26px;margin-top:16px;overflow:hidden;text-decoration:none}
+.strip::before{content:"";position:absolute;inset:0 auto 0 0;width:12px;background:repeating-linear-gradient(135deg,var(--gold-fill) 0 7px,var(--ink) 7px 14px)}
+.strip .ev-name{font-family:var(--f-display);font-size:1.15rem;color:var(--elixir)}
+.strip .ev-big{font-family:var(--f-display);font-size:1.6rem;line-height:1;color:var(--elixir)}
+.strip .ev-text{flex:1 1 260px;min-width:0}
+.strip .count{font-family:var(--f-num);font-weight:700;font-size:1.15rem;white-space:nowrap}
+
+main{padding-block:18px 48px}
+.view{display:grid;gap:18px}
+.cols{display:grid;gap:18px;grid-template-columns:1fr}
+@media (min-width:900px){.cols{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
+.cols > *{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);min-width:0}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.stack{display:grid;gap:12px}
+.note{border-left:3px solid var(--gold-fill);background:var(--surface-2);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.92rem}
+.note.jam{border-left-color:var(--elixir);background:var(--elixir-soft)}
+.example-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--warn-soft);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--gold-fill);border-color:var(--gold-fill);color:var(--on-gold)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent}
+.linkbtn{background:none;border:0;padding:0;color:var(--gold);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* Verdict */
+.verdict{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:520px){.verdict{grid-template-columns:1fr}}
+.gauge{position:relative;width:132px;height:132px}
+.gauge svg{display:block}
+.gauge .val{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.gauge .val b{font-family:var(--f-num);font-size:2.3rem;font-weight:700;line-height:1}
+.gauge .val span{display:block;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-family:var(--f-num);font-weight:600}
+.v-title{font-size:2rem}
+.v-title.go{color:var(--good)} .v-title.almost{color:var(--warn)} .v-title.stay{color:var(--bad)} .v-title.max{color:var(--gold)}
+.bars{display:grid;gap:12px}
+.bar-row{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr) 92px;gap:10px;align-items:center}
+@media (max-width:560px){.bar-row{grid-template-columns:minmax(0,1fr) 92px}.bar-row .track{grid-column:1/-1;grid-row:2}}
+.track{position:relative;height:10px;background:var(--surface-2);border-radius:99px}
+.fill{position:absolute;inset:0 auto 0 0;border-radius:99px;background:var(--good)}
+.fill.warn{background:var(--warn)} .fill.bad{background:var(--bad)}
+.tick{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:2px}
+.bar-val{text-align:right;font-family:var(--f-num);font-weight:600;font-size:1rem;white-space:nowrap}
+.bar-val small{color:var(--muted);font-weight:500}
+
+/* Lists */
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+ol.steps > li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start}
+ol.steps > li::before{content:counter(s);font-family:var(--f-display);font-size:1rem;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--surface-2);color:var(--ink)}
+.task{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.task:first-child{border-top:0}
+.task .rank{font-family:var(--f-display);font-size:1.05rem;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--surface-2)}
+.task .rank.top{background:var(--gold-fill);color:var(--on-gold)}
+.task-title{font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-family:var(--f-num);font-weight:600;font-size:.8rem;letter-spacing:.04em;border-radius:6px;padding:1px 7px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.chip.jam{background:var(--elixir-soft);color:var(--elixir)}
+.chip.cat{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.builders{display:grid;gap:8px}
+.bld{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:var(--surface-2)}
+.bld .who{font-family:var(--f-num);font-weight:700;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.timeline{display:grid;gap:0}
+.tl{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px dashed var(--line)}
+.tl:first-child{border-top:0}
+.tl .when{font-family:var(--f-num);font-weight:700;font-size:.95rem;color:var(--elixir)}
+
+/* Form */
+.stepper{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.stepper::-webkit-scrollbar{display:none}
+.stepper button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:600;cursor:pointer;color:var(--muted)}
+.stepper button[aria-current="step"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.field{display:grid;gap:8px}
+.field > label,.field > .lbl{font-weight:700}
+.th-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
+.th-btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center}
+.th-btn b{display:block;font-family:var(--f-display);font-size:1.4rem;font-weight:400;line-height:1}
+.th-btn span{font-size:.72rem;color:var(--muted);font-family:var(--f-num);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.th-btn[aria-pressed="true"]{background:var(--gold-fill);border-color:var(--gold-fill);color:var(--on-gold)}
+.th-btn[aria-pressed="true"] span{color:var(--on-gold)}
+.opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;cursor:pointer;text-align:left}
+.opt b{display:block}
+.opt span{font-size:.85rem;color:var(--muted)}
+.opt[aria-pressed="true"]{border-color:var(--gold-fill);box-shadow:inset 0 0 0 1px var(--gold-fill);background:var(--surface-2)}
+.seg{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;overflow:hidden;width:max-content;max-width:100%}
+.seg button{border:0;border-right:1px solid var(--line);background:var(--surface);padding:7px 11px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--muted)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.hero-row{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr) 78px 60px;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.hero-row:first-of-type{border-top:0}
+@media (max-width:560px){.hero-row{grid-template-columns:minmax(0,1fr) 78px 54px}.hero-row input[type=range]{grid-column:1/-1;grid-row:2}}
+.hero-name b{display:block}
+.hero-name span{font-size:.8rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--gold-fill)}
+input[type=number]{width:78px;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 8px;font-family:var(--f-num);font-size:1.05rem;font-weight:600}
+.pct{font-family:var(--f-num);font-weight:700;text-align:right}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.check{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;background:var(--surface)}
+.check input{width:18px;height:18px;accent-color:var(--gold-fill)}
+select{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;max-width:100%}
+textarea{width:100%;min-height:90px;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem}
+details.import{border:1px dashed var(--line);border-radius:var(--r);padding:12px 14px;background:var(--surface)}
+details.import summary{cursor:pointer;font-weight:700}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.status{font-size:.85rem;color:var(--muted)}
+.status.ok{color:var(--good)}
+.msg{font-size:.9rem}
+.msg.err{color:var(--bad)} .msg.ok{color:var(--good)}
+
+/* Compos */
+.filters{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.compo-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.compo{display:flex;flex-direction:column;gap:10px}
+.compo.open{grid-column:1/-1}
+.compo-h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.compo-h h3{font-size:1.25rem}
+.compo .alias{font-size:.85rem;color:var(--muted)}
+.diff{display:inline-flex;gap:3px;vertical-align:middle}
+.diff i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.diff i.on{background:var(--ink)}
+.main-flag{font-family:var(--f-num);font-weight:700;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--on-gold);background:var(--gold-fill);border-radius:6px;padding:2px 7px;white-space:nowrap}
+.targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px}
+.tg{border-radius:8px;padding:7px 9px;background:var(--surface-2)}
+.tg .vs{font-family:var(--f-num);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tg .stars{display:flex;gap:2px;margin:2px 0}
+.tg .lab{font-size:.8rem;font-weight:600}
+.tg.good{background:var(--good-soft)} .tg.good .lab{color:var(--good)}
+.tg.ok{background:var(--surface-2)}
+.tg.warn{background:var(--warn-soft)} .tg.warn .lab{color:var(--warn)}
+.tg.bad{background:var(--bad-soft)} .tg.bad .lab{color:var(--bad)}
+.star{width:15px;height:15px;fill:var(--gold-fill)}
+.star.off{fill:var(--line)}
+.detail{display:grid;gap:16px;grid-template-columns:1fr;border-top:1px solid var(--line);padding-top:14px}
+@media (min-width:760px){.detail{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+.detail > *{min-width:0}
+dl.kit{display:grid;gap:10px;margin:0}
+dl.kit dt{font-family:var(--f-num);font-weight:700;font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+dl.kit dd{margin:2px 0 0}
+dl.kit ul{margin:0;padding-left:18px}
+.compo-foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.tips{columns:2 280px;column-gap:28px;margin:0;padding-left:18px}
+.tips li{break-inside:avoid;margin-bottom:8px}
+
+/* Events */
+.ev-list{display:grid;gap:10px}
+.ev{display:grid;grid-template-columns:118px minmax(0,1fr);gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.ev:first-child{border-top:0}
+@media (max-width:520px){.ev{grid-template-columns:1fr;gap:4px}}
+.ev .dates{font-family:var(--f-num);font-weight:700;font-size:1rem;line-height:1.25}
+.ev .state{display:inline-block;margin-top:4px}
+.state{font-family:var(--f-num);font-weight:700;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:1px 7px}
+.state.live{background:var(--elixir-soft);color:var(--elixir)}
+.state.soon{background:var(--surface-2);color:var(--ink)}
+.state.past{background:var(--surface-2);color:var(--muted)}
+.state.rumor{background:var(--warn-soft);color:var(--warn)}
+.res{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.res a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface)}
+.res a:hover{border-color:var(--muted)}
+.res b{display:block;color:var(--gold)}
+@media (max-width:480px){.brand .tagline{display:none}.brand h1{font-size:1.25rem}.vchip .sep,.vchip .num{display:none}}
+footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);font-size:.84rem}
+/* Screens */
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.drop{display:grid;place-items:center;gap:4px;text-align:center;border:2px dashed var(--line);border-radius:var(--r);padding:26px 16px;background:var(--bg);cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--gold-fill);background:var(--surface-2)}
+.drop svg{color:var(--muted);margin-bottom:4px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.thumb{position:relative;margin:0;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2)}
+.thumb img{display:block;width:100%;height:76px;object-fit:cover}
+.thumb button{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:var(--ink);color:var(--surface);cursor:pointer;font-weight:700;line-height:1}
+.scan-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spinner{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--gold-fill);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+table.read{width:100%;border-collapse:collapse}
+table.read th{text-align:left;font-weight:600;padding:8px 12px 8px 0;border-top:1px solid var(--line);width:44%;vertical-align:top}
+table.read td{padding:8px 0;border-top:1px solid var(--line)}
+table.read tr:first-child th,table.read tr:first-child td{border-top:0}
+@media (prefers-reduced-motion:reduce){.spinner{animation:none}}
+@media (prefers-reduced-motion:no-preference){.fill,.gauge circle{transition:all .4s ease}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="9" fill="var(--ink)"/><g transform="rotate(-38 17 17)"><rect x="15.4" y="12" width="3.2" height="16" rx="1.4" fill="var(--gold-fill)"/><rect x="9" y="7" width="16" height="7" rx="2" fill="var(--surface)"/><rect x="9" y="7" width="4" height="7" rx="1.5" fill="var(--gold-fill)"/></g></svg>
+        <div><h1>Coach HDV</h1><div class="tagline">Progresser plus vite à Clash of Clans</div></div>
+      </div>
+      <button class="vchip" id="vchip" type="button" title="Modifier mon village"></button>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <a href="#plan">Mon plan</a>
+      <a href="#screens">Mes screens</a>
+      <a href="#village">Mon village</a>
+      <a href="#ameliorations">Améliorations</a>
+      <a href="#compos">Compos &amp; stratégies</a>
+      <a href="#evenements">Événements</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap"><a class="strip" id="strip" href="#evenements" hidden></a></div>
+
+<main class="wrap"><div id="view" class="view"></div></main>
+
+<footer><div class="wrap">Infos à jour au 3 novembre 2026, compilées depuis des guides publics (Clash Ninja, Blueprint CoC, Trophy Coach…) et les annonces relayées par la presse jeu. Les niveaux max et la méta changent à chaque mise à jour : les quantités d'armée sont indicatives, ajuste-les à tes camps. Application non officielle, sans lien avec Supercell.</div></footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Données jeu ---------- */
+const NOW = () => Date.now();
+const JAM = { start: Date.parse("2026-11-01T08:00:00Z"), end: Date.parse("2026-11-16T08:00:00Z") };
+
+const HEROES = [
+  { id:"bk", name:"Roi des barbares", short:"Roi" },
+  { id:"aq", name:"Reine des archers", short:"Reine" },
+  { id:"mp", name:"Prince des sbires", short:"Prince" },
+  { id:"gw", name:"Grand gardien", short:"Gardien" },
+  { id:"rc", name:"Championne royale", short:"RC" },
+  { id:"dd", name:"Duc dragon", short:"Duc" }
+];
+// Niveaux max des héros par HDV (Hall des héros), état novembre 2026
+const CAPS = {
+  7:{bk:10}, 8:{bk:20,aq:10}, 9:{bk:30,aq:30,mp:10}, 10:{bk:40,aq:40,mp:20},
+  11:{bk:50,aq:50,mp:30,gw:20}, 12:{bk:65,aq:65,mp:40,gw:40},
+  13:{bk:75,aq:75,mp:50,gw:50,rc:25}, 14:{bk:85,aq:85,mp:60,gw:60,rc:30},
+  15:{bk:90,aq:90,mp:70,gw:65,rc:40,dd:10}, 16:{bk:95,aq:95,mp:80,gw:70,rc:45,dd:15},
+  17:{bk:100,aq:100,mp:90,gw:75,rc:50,dd:20}, 18:{bk:110,aq:110,mp:95,gw:85,rc:55,dd:25}
+};
+const WALLCAP = {7:7,8:8,9:10,10:11,11:12,12:13,13:14,14:15,15:16,16:17,17:18,18:19};
+const TH = {
+  7:{news:["Roi des barbares","Caserne noire"], key:["Tours de sorciers","Défenses antiaériennes","Mortiers"]},
+  8:{news:["Reine des archers","Forge (équipements)","Usine de sorts noirs"], key:["Défenses antiaériennes","Tours de sorciers","Tesla cachées"]},
+  9:{news:["Arcs-X","Prince des sbires"], key:["Arcs-X","Défenses antiaériennes","Tours de sorciers"]},
+  10:{news:["Tours de l'enfer"], key:["Tours de l'enfer","Arcs-X","Défenses antiaériennes"]},
+  11:{news:["Artillerie aigle","Grand gardien"], key:["Artillerie aigle","Tours de l'enfer","Arcs-X"]},
+  12:{news:["HDV armé (Giga Tesla)","Atelier (machines de siège)"], key:["HDV armé","Artillerie aigle","Tours de l'enfer"]},
+  13:{news:["Championne royale","Scattershots"], key:["Scattershots","Artillerie aigle","Tours de l'enfer"]},
+  14:{news:["Animalerie (familiers)","Huttes d'ouvrier armées"], key:["Huttes d'ouvrier","Scattershots","Artillerie aigle"]},
+  15:{news:["Monolithe","Tour à sorts","Duc dragon"], key:["Monolithe","Tours à sorts","Scattershots"]},
+  16:{news:["Canon ricochet","Tour multi-archers"], key:["Canon ricochet","Tour multi-archers","Monolithe"]},
+  17:{news:["Artillerie infernale","Crache-feu","Bombe géante"], key:["Artillerie infernale","Crache-feu","Monolithe"]},
+  18:{news:["Gardiens (Longshot, Smasher, Logger)","Super tour des sorciers","Tour de la vengeance"], key:["Gardien choisi","Tour de la vengeance","Super tour des sorciers"]}
+};
+const OFFB = [
+  {id:"camps", name:"Camps militaires", min:7},
+  {id:"cc", name:"Château de clan", min:7},
+  {id:"barracks", name:"Casernes & usines à sorts", min:7},
+  {id:"forge", name:"Forge (équipements)", min:8},
+  {id:"workshop", name:"Atelier (machines de siège)", min:12},
+  {id:"pets", name:"Animalerie", min:14}
+];
+const LEVELS = [0.1,0.4,0.6,0.8,1];
+const LEVEL_LBL = ["Peu","≈ 40 %","≈ 60 %","≈ 80 %","Max"];
+const LAB_LBL = ["Tout à rattraper","≈ 40 %","≈ 60 %","≈ 80 %","Tout au max"];
+
+const GOALS = {
+  war:{ name:"Guerre & LDC", desc:"Faire 3 étoiles en GDC et en Ligue de guerre." },
+  farm:{ name:"Progresser vite", desc:"Farmer, monter d'HDV rapidement, sans trop de pression défense." },
+  trophies:{ name:"Trophées / Ranked", desc:"Grimper au classement : il faut aussi bien défendre." }
+};
+const TARGETS = {
+  war:     {heroes:.9, heroMin:.8, lab:.8, off:1, keyDef:.75, baseDef:.6, traps:.6, walls:.5},
+  farm:    {heroes:.8, heroMin:.65, lab:.7, off:.8, keyDef:.4, baseDef:.3, traps:0, walls:0},
+  trophies:{heroes:.9, heroMin:.8, lab:.8, off:1, keyDef:.85, baseDef:.75, traps:.75, walls:.6}
+};
+const METRICS = [
+  {k:"heroes", label:"Héros (moyenne)", w:.3},
+  {k:"heroMin", label:"Héros le plus en retard", w:.08},
+  {k:"lab", label:"Laboratoire", w:.2},
+  {k:"off", label:"Bâtiments d'attaque", w:.14},
+  {k:"keyDef", label:"Défenses clés", w:.14},
+  {k:"baseDef", label:"Défenses classiques", w:.07},
+  {k:"traps", label:"Pièges", w:.03},
+  {k:"walls", label:"Murs", w:.04}
+];
+
+/* Compos : power = force relative (0–1) utilisée pour estimer ce que tu peux viser */
+const COMPOS = [
+  {id:"dragzap", name:"Dragons + Foudre", alias:"Mass Dragons", th:[7,9], type:"Air", modes:["war","trophies"], diff:1, power:.86,
+   army:["Dragons : autant que possible (≈ 8 à 10)","Ballons ou Sbires pour compléter"],
+   spells:["Foudre ×2–3 sur une défense antiaérienne","Rage ×1 si tu as la place"], siege:"—", cc:"Dragon ou Ballons",
+   heroes:"Roi (et Reine dès l'HDV8) pour nettoyer un côté",
+   plan:["Repère la défense antiaérienne (DCA) la plus proche du bord et détruis-la à la Foudre.","Pose 1 Dragon à chaque extrémité de ton côté d'attaque pour nettoyer l'extérieur : c'est l'entonnoir (funnel).","Envoie le reste des Dragons en ligne serrée au milieu de ce côté.","Rage quand le groupe arrive sur le cœur ou sur la 2e DCA.","Héros et Ballons pour finir ce qui reste sur les bords."],
+   best:"DCA éparpillées, peu de Tours de sorciers au centre.", avoid:"DCA groupées au cœur sous les Tours de sorciers.", research:["Dragons","Foudre","Rage"]},
+  {id:"giwi", name:"Géants + Sorciers", alias:"GiWi", th:[7,8], type:"Sol", modes:["war","trophies"], diff:1, power:.8,
+   army:["Géants ≈ 10–12","Sorciers ≈ 14–16","Briseurs de murs ×6","Archers pour compléter"],
+   spells:["Rage ×2","Soin ×1"], siege:"—", cc:"Sorciers", heroes:"Roi derrière les Géants",
+   plan:["Géants en 2 groupes face aux défenses (pas aux murs).","Briseurs de murs par 2 sur le mur devant les Géants.","Sorciers derrière les Géants, en ligne, pour nettoyer.","Soin quand les Géants passent sous les mortiers, Rage au cœur."],
+   best:"Bases compactes avec peu de défenses de zone.", avoid:"Bombes géantes au milieu de ton chemin.", research:["Géants","Sorciers","Rage"]},
+  {id:"hogs", name:"Cochons + Soin", alias:"Hog Riders", th:[7,10], type:"Sol", modes:["war","trophies"], diff:2, power:.86,
+   army:["Chevaucheurs de cochon ≈ 25–30","Sorciers ×4–6 (nettoyage + château)","Géants ×2 en tank (optionnel)"],
+   spells:["Soin ×3–4","Poison ×1 pour les troupes du château"], siege:"—", cc:"Cochons ou Sorciers", heroes:"Roi + Reine sur un côté pour finir",
+   plan:["Attire les troupes du château de clan avec 1 Cochon, puis tue-les avec Sorciers + Poison hors de portée des défenses.","Repère les cases vides de 2×2 entre bâtiments : c'est là que se cachent les bombes géantes.","Pose les Cochons en 2 groupes depuis deux angles.","Soin juste avant qu'un groupe entre dans une zone de bombes ou sous plusieurs défenses.","Héros + Sorciers restants pour nettoyer."],
+   best:"Bases compactes à défenses régulières.", avoid:"Pièges groupés et Tesla au cœur.", research:["Chevaucheurs de cochon","Soin","Sorciers"]},
+  {id:"gowipe", name:"GoWiPe", alias:"Golem + Sorciers + P.E.K.K.A", th:[8,10], type:"Sol", modes:["war","trophies"], diff:1, power:.82,
+   army:["Golems ×2","P.E.K.K.A ×2–3","Sorciers ≈ 10","Briseurs de murs ×4–6"],
+   spells:["Rage ×2","Soin ×1"], siege:"—", cc:"Sorciers ou Bébés dragons", heroes:"Roi + Reine derrière les Golems",
+   plan:["Golems en premier, côte à côte, face au cœur.","Sorciers derrière pour nettoyer l'extérieur (entonnoir).","Briseurs de murs par 2 sur le premier mur intérieur.","P.E.K.K.A + héros dans la brèche.","Rage sur le groupe au contact du cœur, Soin si les mortiers font mal."],
+   best:"Bases avec un cœur unique.", avoid:"Bases très étalées.", research:["Golems","P.E.K.K.A","Rage"]},
+  {id:"lavaloon", name:"LaLoon", alias:"Molosses de lave + Ballons", th:[9,13], type:"Air", modes:["war"], diff:2, power:.9,
+   army:["Molosses de lave ×2–3 (1 par DCA hors entonnoir)","Ballons ≈ 24–30","Sbires ≈ 8–12 pour nettoyer"],
+   spells:["Hâte ×3–4","Rage ×1–2","Gel ×1 dès l'HDV10 (Inferno / Arc-X)"], siege:"Dirigeable de combat à l'HDV12+", cc:"Molosse de lave ou Ballons",
+   heroes:"Reine + 4 Guérisseuses pour ouvrir un côté (Queen Walk)",
+   plan:["Reine + Guérisseuses sur un côté : elle détruit une DCA et vide le château de clan.","Un Molosse sur chaque DCA restante pour attirer les tirs.","Ballons en ligne derrière les Molosses, sur un front large.","Hâte sur le chemin des Ballons, Rage au cœur.","Sbires 10 à 15 s plus tard pour nettoyer les bâtiments restants."],
+   best:"DCA séparées, côté faible en défense aérienne.", avoid:"Balayeurs aériens tournés vers ton entrée.", research:["Ballons","Molosses de lave","Hâte"]},
+  {id:"zapwitch", name:"Zap Sorcières", alias:"Golem + Sorcières", th:[9,11], type:"Sol", modes:["war","trophies"], diff:1, power:.86,
+   army:["Golems ×2","Sorcières ≈ 12–15","Briseurs de murs ×4","Sorciers ×4"],
+   spells:["Foudre ×3 + Séisme ×1 sur la défense de zone clé","Saut ×1","Rage ×1"], siege:"—", cc:"Boulistes ou Sorcières", heroes:"Reine et Roi avec les Golems",
+   plan:["Zap la défense de zone qui menace tes Sorcières : Inferno en mode multi (HDV10–11) ou Tour de sorciers (HDV9).","Golems en tank, Sorciers derrière pour l'entonnoir.","Briseurs sur le premier mur, puis Sorcières en groupe derrière les Golems.","Saut vers le cœur quand le groupe avance, Rage au contact.","Capacités des héros quand ils perdent la moitié de leur vie."],
+   best:"Cœur unique avec Infernos en mode multi.", avoid:"Beaucoup de bombes géantes sur ton chemin.", research:["Sorcières","Golems","Foudre"]},
+  {id:"zapdrag", name:"Zap Dragons", alias:"Dragons + Foudre (2 DCA)", th:[10,12], type:"Air", modes:["war","trophies"], diff:1, power:.88,
+   army:["Dragons ≈ 10–12","Ballons pour compléter"],
+   spells:["Foudre ×7–9 + Séisme ×1 pour détruire 2 DCA","Rage avec ce qui reste"], siege:"Dirigeable de combat à l'HDV12", cc:"Dragon ou Ballons",
+   heroes:"Reine avec Flèche géante (Giant Arrow) sur une 3e DCA, Gardien avec les Dragons",
+   plan:["Choisis 2 DCA dans la moitié où tu attaques et détruis-les à la Foudre + Séisme (vérifie le nombre de Foudres selon les niveaux).","Dragons en ligne serrée d'un angle à l'autre de ton côté d'attaque.","Gardien derrière les Dragons, capacité au cœur.","Reine depuis un autre côté pour faire tomber une DCA à la Flèche géante."],
+   best:"DCA accessibles à la Foudre (pas collées à l'HDV).", avoid:"Infernos en mono-cible très bien placées.", research:["Dragons","Foudre","Séisme"]},
+  {id:"queencharge", name:"Queen Charge Hybride", alias:"Reine + Cochons + Mineurs", th:[10,14], type:"Hybride", modes:["war"], diff:3, power:.95,
+   army:["Guérisseuses ×4–5 pour la Reine","Chevaucheurs de cochon ≈ 12–16","Mineurs ≈ 18–22","Briseurs de murs ×2"],
+   spells:["Rage ×1 (sur la Reine)","Soin ×4–5","Gel ×1"], siege:"Broyeur de pierre ou Caserne de siège (HDV12+)", cc:"Cochons ou Mineurs",
+   heroes:"Reine (Healer Puppet / Invisibility Vial), Roi, Gardien",
+   plan:["Reine + Guérisseuses sur un côté : elle détruit une DCA et attire le château de clan.","Rage sur la Reine quand elle prend des dégâts, Gel sur une Inferno si elle la cible.","Quand la Reine a dégagé un côté, envoie Cochons + Mineurs en masse derrière elle.","Soin par vagues, juste avant les zones de pièges et les défenses groupées.","Roi et Gardien pour finir les bâtiments isolés."],
+   best:"Bases étalées, DCA en périphérie.", avoid:"Cœurs très compacts avec Scattershots.", research:["Mineurs","Chevaucheurs de cochon","Guérisseuses","Soin"]},
+  {id:"edrag", name:"Électro-dragons", alias:"E-Drags", th:[11,13], type:"Air", modes:["war","trophies"], diff:1, power:.88,
+   army:["Électro-dragons ≈ 7–8","Ballons ≈ 6–8"],
+   spells:["Rage ×3","Gel ×2","Foudre ×1–2"], siege:"Dirigeable de combat (HDV12+)", cc:"Électro-dragon", heroes:"Gardien au milieu des E-Drags, Reine sur un côté",
+   plan:["Choisis un angle avec beaucoup de bâtiments serrés : les éclairs rebondissent.","E-Drags en ligne serrée depuis l'angle, Ballons sur les défenses aériennes de l'avant.","Rage sur le groupe quand il atteint le cœur.","Gel sur les Infernos ou l'Aigle quand ils ciblent le groupe."],
+   best:"Bases compactes, bâtiments collés.", avoid:"Bases très espacées (les éclairs ne rebondissent plus).", research:["Électro-dragons","Rage","Gel"]},
+  {id:"swfb", name:"Super Sorcières + Boule de feu", alias:"Super Witch Fireball", th:[12,14], type:"Sol", modes:["war"], diff:2, power:.9,
+   army:["Super Sorcières ×4–5 (super troupe à booster)","Golem ×1 ou Yétis ×2 en tank","Sorciers ×4–6","Briseurs de murs ×4"],
+   spells:["Rage ×2","Saut ×1","Gel ×2"], siege:"Démolisseur (Wall Wrecker)", cc:"Yéti ou Super Sorcière", heroes:"Gardien avec Boule de feu (Fireball), Reine",
+   plan:["Boule de feu du Gardien sur un groupe de défenses à l'entrée (Inferno, Aigle…).","Tank + Sorciers pour créer l'entonnoir.","Super Sorcières en groupe derrière le tank, Démolisseur pour ouvrir le cœur.","Saut vers le cœur, Gel sur les Infernos, Rage au contact."],
+   best:"Cœur unique derrière 2 couches de murs.", avoid:"Bases étalées sans cœur.", research:["Super Sorcières","Rage","Gel"]},
+  {id:"yetismash", name:"Yétis Smash", alias:"Yétis + Golem", th:[12,15], type:"Sol", modes:["war","trophies"], diff:2, power:.9,
+   army:["Yétis ≈ 7–8","Golem ×1","Sorcières ×4","Briseurs de murs ×4"],
+   spells:["Rage ×2","Saut ×1","Gel ×2","Séisme ×1"], siege:"Broyeur de pierre ou Démolisseur", cc:"Yétis", heroes:"Roi + Gardien avec les Yétis, Reine (ou RC) sur un côté",
+   plan:["Reine (ou RC dès l'HDV13) nettoie un côté pour l'entonnoir.","Golem devant, Briseurs sur le premier mur.","Yétis en groupe derrière le Golem, Sorcières en soutien.","Saut dans le cœur, Gel sur les Infernos et Scattershots, Rage au contact."],
+   best:"Cœurs denses.", avoid:"Beaucoup de défenses de zone groupées sans Gel dispo.", research:["Yétis","Rage","Gel"]},
+  {id:"hydra", name:"Hydra", alias:"Dragons + Chevaucheurs de dragon", th:[13,18], type:"Air", modes:["war"], diff:2, power:.93,
+   army:["Chevaucheurs de dragon ≈ 5–6","Dragons ≈ 5–6","Ballons ×4–6"],
+   spells:["Rage ×3","Gel ×3","Foudre ×2 (pour une DCA)"], siege:"Dirigeable de combat", cc:"Chevaucheurs de dragon",
+   heroes:"Charge RC ou Reine sur un côté, Gardien (Eternal Tome) avec les dragons",
+   plan:["Charge d'un héros sur un côté pour retirer une DCA et vider le château.","Ballons sur les défenses aériennes du bord.","Dragons + Chevaucheurs en ligne sur le côté dégagé.","Gel sur les Scattershots et Infernos, Tome éternel du Gardien au pic de dégâts.","Rage au cœur."],
+   best:"DCA espacées.", avoid:"2 Scattershots + Monolithe côte à côte (gèle-les ou change de compo).", research:["Chevaucheurs de dragon","Dragons","Gel"]},
+  {id:"rrsmash", name:"Smash Root Riders", alias:"Root Riders", th:[15,18], type:"Sol", modes:["war","trophies"], diff:1, power:.96,
+   army:["Root Riders ≈ 6–8","Valkyries ou Super Barbares ≈ 6–8","Guérisseuses ×2–3 ou Golems de glace ×1–2"],
+   spells:["Rage ×2","Gel ×2–3","Surcroissance (Overgrowth) ×1"], siege:"Caserne de siège", cc:"Root Riders", heroes:"RC + Roi pour l'entonnoir, Gardien avec le groupe",
+   plan:["RC et Roi dégagent les deux côtés : un entonnoir propre, c'est 80 % de la réussite.","Root Riders en groupe serré au centre de l'entonnoir : ils cassent les murs en avançant.","Valkyries ou Super Barbares juste derrière pour nettoyer.","Gel sur Monolithe, Scattershot ou Inferno quand ils ciblent le groupe, Rage dans le cœur.","Surcroissance sur un groupe de défenses qui menace ton chemin."],
+   best:"Un cœur dense unique. La compo la plus tolérante aux erreurs à haut HDV.", avoid:"Bases très étalées à plusieurs cœurs : préfère la variante Root Riders + Valkyries.", research:["Root Riders","Gel","Rage"]},
+  {id:"rcdrag", name:"RC Charge Dragons", alias:"Championne royale + Dragons", th:[15,17], type:"Air", modes:["war"], diff:2, power:.92,
+   army:["Dragons ≈ 10–11","Guérisseuses ×3–4 pour la RC","Ballons ×4"],
+   spells:["Foudre ×4 (1 DCA)","Rage ×3","Gel ×2"], siege:"Dirigeable de combat", cc:"Dragons",
+   heroes:"RC (Seeking Shield) en charge, Gardien avec Eternal Tome, Duc dragon pour finir",
+   plan:["RC + Guérisseuses sur un côté : elle détruit les défenses du bord et une DCA.","Foudre sur une DCA du côté opposé à ton entrée.","Dragons en ligne derrière la charge, Ballons sur les défenses aériennes.","Gel sur les Infernos et Scattershots, Tome éternel quand les dragons entrent au cœur.","Duc dragon en fin d'attaque pour nettoyer."],
+   best:"Bases avec une DCA isolée.", avoid:"Défense aérienne très concentrée au cœur.", research:["Dragons","Rage","Gel"]},
+  {id:"fbloon", name:"Boule de feu + Ballons-fusées", alias:"Fireball Rocket Loons", th:[15,17], type:"Air", modes:["war"], diff:2, power:.91,
+   army:["Ballons-fusées ≈ 20–24 (super troupe à booster)","Molosses de lave ×2","Sbires ou Ballons pour nettoyer"],
+   spells:["Rage ×2","Gel ×2","Invisibilité ×1–2"], siege:"Dirigeable de combat", cc:"Ballons-fusées",
+   heroes:"Gardien avec Boule de feu, Reine ou RC sur un côté",
+   plan:["Boule de feu sur un groupe de défenses aériennes ou un Scattershot.","Héros dégagent un côté et le château de clan.","Molosses sur les DCA restantes.","Ballons-fusées en vagues sur un front large.","Invisibilité quand les ballons passent sous l'Aigle ou un Scattershot, Rage au cœur."],
+   best:"Défenses aériennes dispersées.", avoid:"Bases avec Balayeurs aériens bien orientés.", research:["Ballons-fusées","Molosses de lave","Invisibilité"]},
+  {id:"sbowler", name:"Super Boulistes Smash", alias:"Super Bowlers", th:[16,18], type:"Sol", modes:["war","trophies"], diff:2, power:.93,
+   army:["Super Boulistes ≈ 12–15","Golem ×1","Guérisseuses ×2","Briseurs de murs ×4"],
+   spells:["Rage ×2","Saut ×1","Gel ×2","Soin ×1"], siege:"Démolisseur", cc:"Super Boulistes", heroes:"RC + Reine sur un côté, Roi + Gardien avec le groupe",
+   plan:["Héros nettoient un côté (entonnoir).","Golem devant, Briseurs sur le premier mur.","Super Boulistes en groupe : leurs boules rebondissent dans les bâtiments serrés.","Saut vers le cœur, Gel sur les défenses de zone, Rage au contact."],
+   best:"Bases compactes à bâtiments serrés.", avoid:"Bases aérées où les boules ne rebondissent pas.", research:["Super Boulistes","Rage","Gel"]},
+  {id:"rcyeti", name:"RC Charge Super Yétis", alias:"Super Yetis", th:[17,18], type:"Sol", modes:["war"], diff:2, power:.95,
+   army:["Super Yétis ×7","Sorcières ×3","Golem ×1","Briseurs de murs ×2"],
+   spells:["Rage ×2","Gel ×2","Soin ×1","Saut ×1"], siege:"Lanceur de bûches (Log Launcher)", cc:"Super Yétis",
+   heroes:"RC en charge, Gardien avec Boule de feu, Roi et Reine avec les Yétis",
+   plan:["Boule de feu du Gardien sur la défense la plus dangereuse de l'entrée (souvent le groupe du Monolithe).","Charge RC sur un côté pour nettoyer et prendre le château de clan.","Golem + Briseurs pour ouvrir, puis Super Yétis derrière le Golem.","Lanceur de bûches dans l'axe pour casser les murs du cœur.","Gel sur le Monolithe ou l'Artillerie infernale, Rage + Soin au cœur."],
+   best:"Bases avec Monolithe accessible à la Boule de feu.", avoid:"Cœurs avec plusieurs défenses mono-cible fortes non gelables.", research:["Super Yétis","Rage","Gel"]},
+  {id:"rryeti", name:"Root Rider Yéti", alias:"Root Riders + Super Yétis", th:[17,18], type:"Sol", modes:["war"], diff:2, power:.97,
+   army:["Root Riders ≈ 5–6","Super Yétis ≈ 3–4","Guérisseuses ou Druides ×2"],
+   spells:["Rage ×2","Gel ×3","Surcroissance ×1"], siege:"Caserne de siège", cc:"Root Riders ou Super Yétis",
+   heroes:"RC en charge, Gardien et Duc dragon en soutien",
+   plan:["Charge RC sur un côté pour retirer le château et les défenses du bord.","Root Riders en tête : ils encaissent et ouvrent les murs.","Super Yétis juste derrière pour faire exploser le cœur fortifié.","Gel sur le Monolithe + la défense de zone, Rage dans le cœur."],
+   best:"Cœurs fortifiés (Monolithe, Artillerie infernale). L'attaque la plus régulière en GDC HDV18 selon plusieurs guides.", avoid:"Bases à plusieurs mini-cœurs éloignés.", research:["Root Riders","Super Yétis","Gel"]},
+  {id:"ddhydra", name:"Charge Duc dragon + Hydra", alias:"Dragon Duke Charge", th:[17,18], type:"Air", modes:["war"], diff:2, power:.94,
+   army:["Chevaucheurs de dragon ≈ 5–6","Dragons ≈ 5","Ballons ×4"],
+   spells:["Rage ×3","Gel ×3","Foudre ×2"], siege:"Dirigeable de combat", cc:"Chevaucheurs de dragon",
+   heroes:"Duc dragon en charge sur un côté, Gardien (Eternal Tome) avec le groupe",
+   plan:["Le Duc dragon ouvre un côté et détruit une DCA, couvert par quelques Ballons.","Dragons + Chevaucheurs en ligne sur le côté dégagé.","Gel sur les Scattershots et Infernos, Tome éternel au cœur.","Rage quand le groupe arrive au centre."],
+   best:"DCA en bord de base.", avoid:"Défense aérienne concentrée au cœur.", research:["Chevaucheurs de dragon","Dragons","Gel"]},
+  {id:"meteor", name:"Golem météore Smash", alias:"Meteor Golem", th:[18,18], type:"Sol", modes:["war"], diff:3, power:.94,
+   army:["Golem météore ×1","Super Yétis ≈ 4","Boulistes ≈ 8","Briseurs de murs ×2"],
+   spells:["Rage ×2","Gel ×2","Saut ×1"], siege:"Lanceur de bûches", cc:"Super Yétis", heroes:"Gardien avec Boule de feu, RC sur un côté",
+   plan:["RC nettoie un côté pour l'entonnoir.","Golem météore en tank principal face au cœur : il encaisse les défenses.","Super Yétis et Boulistes dans son ombre.","Saut + Rage quand le groupe arrive sur les murs du cœur, Gel sur les défenses qui le ciblent."],
+   best:"Bases à cœur unique. Gros buff au rééquilibrage de juillet 2026.", avoid:"Bases étalées.", research:["Golem météore","Super Yétis","Rage"]},
+  {id:"bam", name:"BAM farm", alias:"Barbares + Archers + Sbires", th:[7,10], type:"Sol", modes:["farm"], diff:1, power:.6,
+   army:["Barbares ≈ 40 %","Archers ≈ 40 %","Sbires ≈ 20 %","Gobelins ×10 pour les stockages"],
+   spells:["Rage ×1","Foudre pour les extracteurs d'élixir noir"], siege:"—", cc:"Ce que ton clan donne", heroes:"Roi si dispo, sinon laisse-le monter",
+   plan:["Cherche des villages avec collecteurs et mines pleins à l'extérieur.","Petits groupes de Barbares + Archers sur chaque collecteur.","Gobelins sur les stockages accessibles.","Sbires pour finir. Ne cherche pas l'étoile : vise les ressources, puis relance."],
+   best:"Villages inactifs aux collecteurs pleins.", avoid:"Stockages au cœur bien protégés.", research:["Barbares","Archers","Gobelins"]},
+  {id:"sneaky", name:"Farm express", alias:"Gobelins sournois + Super Barbares", th:[11,18], type:"Sol", modes:["farm"], diff:1, power:.65,
+   army:["Gobelins sournois ≈ 25–30 (super troupe à booster)","Super Barbares ≈ 12–15","Briseurs de murs ×4"],
+   spells:["Rage ×2","Gel ×1","Foudre ou Séisme pour les extracteurs d'élixir noir"], siege:"—", cc:"Ce que ton clan donne", heroes:"Héros seulement s'ils ne sont pas en amélioration",
+   plan:["Vise les villages aux stockages accessibles (ou l'HDV à l'extérieur pour l'étoile).","Gobelins sournois sur les stockages : ils sont invisibles quelques secondes.","Super Barbares en groupe pour raser le reste et prendre 1 étoile.","Attaque vite et relance : en farm, le temps compte plus que le pourcentage."],
+   best:"Stockages en bord de base.", avoid:"Bases fermées avec stockages au centre.", research:["Gobelins sournois","Super Barbares"]}
+];
+const DEFAULT_COMPO = {7:"dragzap",8:"dragzap",9:"zapwitch",10:"zapwitch",11:"queencharge",12:"zapdrag",13:"queencharge",14:"queencharge",15:"rrsmash",16:"rrsmash",17:"rryeti",18:"rryeti"};
+
+const EVENTS = [
+  {id:"ldc", name:"Ligue de guerre de clans (LDC)", start:"2026-11-01T08:00:00Z", end:"2026-11-11T08:00:00Z", approx:true,
+   what:"Une semaine de guerres. Les médailles LDC s'échangent contre des potions d'ouvrier : c'est le moment de les dépenser pendant le Hammer Jam."},
+  {id:"jam", name:"Hammer Jam (convention des marteaux)", start:"2026-11-01T08:00:00Z", end:"2026-11-16T08:00:00Z",
+   what:"-50 % sur le coût et le temps des améliorations payées en or, élixir ou élixir noir (village principal, HDV3+) : bâtiments, défenses, murs, héros, labo. Collecteurs et extracteurs produisent 2× plus. La base des ouvriers n'est pas concernée."},
+  {id:"peek", name:"Aperçus de l'HDV19", start:"2026-11-13T08:00:00Z", end:"2026-11-15T20:00:00Z", approx:true, rumor:true,
+   what:"Annoncés par plusieurs sites (« sneak peeks »). Pas encore confirmé par Supercell."},
+  {id:"th19", name:"Sortie de l'HDV19", when:"Mi ou fin novembre", rumor:true,
+   what:"Attendue juste après le Hammer Jam (l'HDV18 était sorti le 17 nov. 2025). Aucune date officielle à ce jour."},
+  {id:"treasure", name:"Chasse au trésor", start:"2026-11-16T08:00:00Z", end:"2026-11-23T08:00:00Z",
+   what:"Prend le relais du Hammer Jam."},
+  {id:"cg", name:"Jeux de clan", start:"2026-11-22T08:00:00Z", end:"2026-11-28T08:00:00Z",
+   what:"Récompenses en potions et objets magiques : garde-les pour l'HDV19 ou la fin de tes gros chantiers."}
+];
+
+/* ---------- Profil ---------- */
+const SAMPLE = { v:1, th:16, goal:"war", builders:6, goldPass:false,
+  heroes:{bk:88,aq:90,mp:66,gw:60,rc:38,dd:11}, lab:0.6,
+  off:{camps:true,cc:true,barracks:true,forge:false,workshop:true,pets:false},
+  keyDef:0.6, baseDef:0.8, traps:0.8, walls:0.4, mainCompo:"rrsmash", isExample:true, updatedAt:0 };
+const LS_KEY = "coach-hdv-profile-v1";
+const clone = o => JSON.parse(JSON.stringify(o));
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+function normalize(p){
+  const s = clone(SAMPLE);
+  const out = Object.assign(s, p || {});
+  out.th = clamp(parseInt(out.th,10) || 16, 7, 18);
+  if(!GOALS[out.goal]) out.goal = "war";
+  out.builders = [5,6].includes(+out.builders) ? +out.builders : 6;
+  out.heroes = Object.assign({}, out.heroes || {});
+  const caps = CAPS[out.th];
+  HEROES.forEach(h => { if(caps[h.id] != null) out.heroes[h.id] = clamp(parseInt(out.heroes[h.id],10) || 0, 0, caps[h.id]); });
+  ["lab","keyDef","baseDef","traps","walls"].forEach(k => { const v = +out[k]; out[k] = isFinite(v) ? clamp(v,0,1) : 0.6; });
+  out.off = Object.assign({}, SAMPLE.off, out.off || {});
+  if(!compoById(out.mainCompo) || !fitsTh(compoById(out.mainCompo), out.th)) out.mainCompo = DEFAULT_COMPO[out.th];
+  return out;
+}
+function loadLocal(){ try { const s = localStorage.getItem(LS_KEY); return s ? JSON.parse(s) : null; } catch(e){ return null; } }
+function saveLocal(p){ try { localStorage.setItem(LS_KEY, JSON.stringify(p)); return true; } catch(e){ return false; } }
+
+const state = { p: normalize(loadLocal() || SAMPLE), tab:"plan", step:0, open:{}, filt:{th:null, mode:"all", type:"all"}, sync:"local", importMsg:null };
+
+/* ---------- Calculs ---------- */
+function compoById(id){ return COMPOS.find(c => c.id === id); }
+function fitsTh(c, t){ return t >= c.th[0] && t <= c.th[1]; }
+function heroesFor(t){ return HEROES.filter(h => CAPS[t][h.id] != null); }
+function heroPct(p, id){ const cap = CAPS[p.th][id]; return cap ? (p.heroes[id] || 0) / cap : 1; }
+function metrics(p){
+  const hs = heroesFor(p.th).map(h => heroPct(p, h.id));
+  const offs = OFFB.filter(b => p.th >= b.min);
+  return {
+    heroes: hs.length ? hs.reduce((a,b)=>a+b,0)/hs.length : 1,
+    heroMin: hs.length ? Math.min.apply(null, hs) : 1,
+    lab: p.lab,
+    off: offs.length ? offs.filter(b => p.off[b.id]).length / offs.length : 1,
+    keyDef: p.keyDef, baseDef: p.baseDef, traps: p.traps, walls: p.walls
+  };
+}
+function offenseReady(p){ const m = metrics(p); return 0.5*m.heroes + 0.35*m.lab + 0.15*m.off; }
+
+function isLive(ev, now){ return ev.start && now >= Date.parse(ev.start) && now < Date.parse(ev.end); }
+function jamActive(){ const n = NOW(); return n >= JAM.start && n < JAM.end; }
+
+function verdict(p){
+  const m = metrics(p), T = TARGETS[p.goal];
+  let sw = 0, sc = 0;
+  const rows = METRICS.map(x => {
+    const v = m[x.k], t = T[x.k];
+    const ratio = t <= 0 ? 1 : Math.min(1, v / t);
+    sw += x.w; sc += x.w * ratio;
+    return { k:x.k, label:x.label, v, t, met: v + 1e-9 >= t };
+  });
+  const score = Math.round(sc / sw * 100);
+  const unmet = rows.filter(r => !r.met);
+  let st;
+  if(p.th >= 18) st = "max";
+  else if(!unmet.length) st = "go";
+  else if(score >= 88 && unmet.every(r => r.t - r.v <= 0.15)) st = "almost";
+  else st = "stay";
+  return { rows, score, unmet, st };
+}
+
+function heroWhy(id, t){
+  const w = {
+    aq:"Ta héroïne la plus polyvalente : elle ouvre les côtés et sert de base aux charges.",
+    rc:"Indispensable aux charges RC, la base des meilleures compos haut HDV.",
+    gw:"Ses équipements (Tome éternel, Boule de feu) font gagner les attaques serrées.",
+    bk:"Solide pour l'entonnoir et le nettoyage des côtés.",
+    mp:"Utile en soutien et contre les défenses aériennes.",
+    dd:"Le Duc dragon ouvre un côté et finit les attaques aériennes."
+  }[id];
+  return w + " Si le niveau est bloqué, monte le Hall des héros.";
+}
+function heroImp(id, t){
+  if(t <= 10) return {aq:1, bk:.8, mp:.6}[id] || .6;
+  if(t <= 12) return {aq:1, gw:.9, bk:.75, mp:.6}[id] || .6;
+  if(t <= 14) return {aq:1, rc:.95, gw:.9, bk:.75, mp:.6}[id] || .6;
+  return {rc:1, aq:.95, gw:.9, bk:.8, dd:.72, mp:.65}[id] || .6;
+}
+
+function buildTasks(p){
+  const t = p.th, g = p.goal, jam = jamActive(), tasks = [];
+  const compo = compoById(p.mainCompo) || compoById(DEFAULT_COMPO[t]);
+  if(p.lab < 1) tasks.push({id:"lab", cat:"Labo", builder:false, long:true, title:"Laboratoire en continu",
+    why:`Ne le laisse jamais vide. Commence par ${compo.research.slice(0,3).join(", ")} (ta compo : ${compo.name}).`, score: 96 + (1-p.lab)*4});
+  heroesFor(t).forEach(h => {
+    const cap = CAPS[t][h.id], lvl = p.heroes[h.id] || 0, gap = 1 - lvl/cap;
+    if(gap > 0) tasks.push({id:"h-"+h.id, cat:"Héros", builder:true, long:true, title:`${h.name} : niv. ${lvl} → ${cap}`,
+      why: heroWhy(h.id, t), score: 52 + 44 * heroImp(h.id, t) * Math.min(1, gap * 2.5)});
+  });
+  const offScore = {camps:88, cc: g === "war" ? 86 : 70, barracks:74, forge:72, pets:76, workshop:62};
+  const offWhy = {camps:"Plus de place = plus de troupes à chaque attaque.", cc:"Renforts plus forts, en attaque comme en défense de guerre.",
+    barracks:"Nécessaire pour débloquer et améliorer les troupes et sorts de ta compo.", forge:"Débloque des niveaux d'équipement de héros.",
+    pets:"Des familiers plus forts pour tes héros.", workshop:"Des machines de siège plus solides."};
+  OFFB.forEach(b => { if(t >= b.min && !p.off[b.id]) tasks.push({id:"o-"+b.id, cat:"Attaque", builder:true, long: b.id !== "workshop",
+    title:b.name, why:offWhy[b.id], score:offScore[b.id]}); });
+  if(p.keyDef < 0.4) tasks.push({id:"news", cat:"Nouveautés", builder:true, long:true, title:`Poser les nouveautés de l'HDV ${t}`,
+    why:`${TH[t].news.join(", ")}. Un nouveau bâtiment rapporte beaucoup de défense par ouvrier.`, score: g === "farm" ? 58 : 80});
+  if(p.keyDef < 1) tasks.push({id:"key", cat:"Défense", builder:true, multi:2, long:true, title:"Défenses clés",
+    why: TH[t].key.join(", ") + (t === 18 ? ". Longshot avant Smasher : sa portée plus longue protège mieux." : "."),
+    score: ({war:70, trophies:78, farm:45})[g] * (0.6 + 0.4*(1-p.keyDef))});
+  if(p.baseDef < 1) tasks.push({id:"base", cat:"Défense", builder:true, multi:2, long:false, title:"Défenses classiques",
+    why:"Canons, tours d'archers, mortiers, DCA, tours de sorciers… à glisser entre deux grosses améliorations.", score: ({war:48, trophies:58, farm:28})[g] * (0.6 + 0.4*(1-p.baseDef))});
+  if(p.traps < 1) tasks.push({id:"traps", cat:"Pièges", builder:true, long:false, title:"Pièges",
+    why:"Rapides et pas chers : parfaits pour occuper un ouvrier quelques heures.", score: ({war:40, trophies:46, farm:20})[g]});
+  if(p.walls < 1) tasks.push({id:"walls", cat:"Murs", builder:false, long:false, title:"Murs",
+    why:"Sans ouvrier : vide ton or et ton élixir en trop dedans" + (jam ? ", ils sont aussi à -50 % pendant le Jam." : "."), score: ({war:34, trophies:42, farm:12})[g]});
+  tasks.forEach(x => { if(jam && x.long) x.score += 8; x.jam = jam && x.long; });
+  tasks.sort((a,b) => b.score - a.score);
+  return tasks;
+}
+function allocate(p, tasks){
+  const out = [], n = p.builders;
+  for(const t of tasks){
+    if(!t.builder) continue;
+    const k = Math.min(t.multi || 1, n - out.length);
+    for(let i=0;i<k;i++) out.push(t);
+    if(out.length >= n) break;
+  }
+  while(out.length < n) out.push(null);
+  return out;
+}
+
+function targets(compo, p){
+  const O = offenseReady(p);
+  const base = compo.power * (0.55 + 0.45*O) * 88;
+  const rows = [];
+  [[-2,25],[-1,12],[0,0],[1,-22]].forEach(([d,b]) => {
+    const E = p.th + d; if(E < 7 || E > 18) return;
+    const s = base + b;
+    let r;
+    if(s >= 92) r = {stars:3, lab:"3 étoiles fiables", cls:"good"};
+    else if(s >= 78) r = {stars:3, lab:"3 étoiles jouables", cls:"ok"};
+    else if(s >= 62) r = {stars:2, lab:"2 étoiles sûres", cls:"warn"};
+    else r = {stars:1, lab:"1–2 étoiles, risqué", cls:"bad"};
+    rows.push(Object.assign({E}, r));
+  });
+  return rows;
+}
+
+/* ---------- Format ---------- */
+const fmt = (ms, o) => new Intl.DateTimeFormat("fr-FR", o).format(new Date(ms));
+const fDay = ms => fmt(ms, {day:"numeric", month:"short"});
+const fDayTime = ms => fmt(ms, {weekday:"short", day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"});
+function left(ms){
+  const d = Math.max(0, ms - NOW());
+  const days = Math.floor(d/864e5), h = Math.floor(d%864e5/36e5), m = Math.floor(d%36e5/6e4);
+  return days > 0 ? `${days} j ${h} h` : `${h} h ${String(m).padStart(2,"0")} min`;
+}
+const pct = v => Math.round(v*100) + " %";
+const STAR = '<svg class="star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.5 6 .8-4.4 4.2 1.1 6L10 15.2 4.7 18.1l1.1-6L1.4 7.9l6-.8z"/></svg>';
+const stars = n => '<div class="stars" aria-label="' + n + ' étoiles">' + [0,1,2].map(i => i < n ? STAR : STAR.replace('class="star"','class="star off"')).join("") + "</div>";
+const diffDots = n => '<span class="diff" title="Difficulté ' + n + '/3">' + [1,2,3].map(i => '<i class="' + (i<=n?"on":"") + '"></i>').join("") + "</span>";
+
+/* ---------- Rendu ---------- */
+const $ = s => document.querySelector(s);
+const view = $("#view");
+
+function renderChrome(){
+  const p = state.p, m = metrics(p);
+  $("#vchip").innerHTML = `<span class="th">HDV ${p.th}</span><span class="sep"></span><span class="num">Héros ${pct(m.heroes)}</span>` +
+    (p.isExample ? '<span class="badge ex">Exemple</span>' : '<span class="badge ok">Mon village</span>');
+  document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + state.tab ? "page" : "false"));
+  renderStrip();
+}
+function renderStrip(){
+  const el = $("#strip"), n = NOW();
+  if(jamActive()){
+    el.hidden = false;
+    el.innerHTML = `<span class="ev-big">-50 %</span><span class="ev-text"><span class="ev-name">Hammer Jam en cours</span><br><span class="small">Coût et temps divisés par deux sur l'or, l'élixir et l'élixir noir. Fin : ${fDayTime(JAM.end)}.</span></span><span class="count">encore ${left(JAM.end)}</span>`;
+    return;
+  }
+  const next = EVENTS.filter(e => e.start).map(e => Object.assign({s:Date.parse(e.start), e:Date.parse(e.end)}, e))
+    .filter(e => e.e > n).sort((a,b) => a.s - b.s)[0];
+  if(!next){ el.hidden = true; return; }
+  el.hidden = false;
+  const live = n >= next.s;
+  el.innerHTML = `<span class="ev-text"><span class="ev-name">${live ? "En cours" : "Prochain événement"} : ${next.name}</span><br><span class="small">${next.what}</span></span><span class="count">${live ? "fin dans " + left(next.e) : "dans " + left(next.s)}</span>`;
+}
+
+function render(){
+  renderChrome();
+  const r = { plan:renderPlan, screens:renderScreens, village:renderVillage, ameliorations:renderUpgrades, compos:renderCompos, evenements:renderEvents }[state.tab];
+  view.innerHTML = r();
+}
+
+function exampleBar(){
+  if(!state.p.isExample) return "";
+  return `<div class="example-bar"><span><b>Ceci est un village d'exemple (HDV16).</b> Envoie des captures de ton village ou réponds au questionnaire pour avoir un plan fait pour ton compte.</span><span class="scan-actions"><a class="btn primary" href="#screens">Envoyer mes screens</a><a class="btn" href="#village">Remplir à la main</a></span></div>`;
+}
+
+function verdictCard(p){
+  const v = verdict(p), jam = jamActive(), t = p.th;
+  const col = {go:"var(--good)", almost:"var(--warn)", stay:"var(--bad)", max:"var(--gold-fill)"}[v.st];
+  const C = 2*Math.PI*54, off = C * (1 - v.score/100);
+  const missing = v.unmet.map(r => r.label.toLowerCase());
+  let title, sub;
+  if(v.st === "go"){ title = `Monte en HDV ${t+1}`; sub = "Ton village est prêt : tu ne perdras pas en efficacité en montant."; }
+  else if(v.st === "almost"){ title = "Presque prêt"; sub = `Finis d'abord : ${missing.join(", ")}. Ensuite, monte en HDV ${t+1}.`; }
+  else if(v.st === "stay"){ title = `Reste à l'HDV ${t}`; sub = `Si tu montes maintenant, tu tomberas en guerre contre des HDV${t+1} avec une armée d'HDV${t}. Priorité : ${missing.slice(0,3).join(", ")}.`; }
+  else { title = "HDV max (pour l'instant)"; sub = "Tu es au plus haut niveau disponible. Finis ton HDV18 et prépare l'arrivée de l'HDV19."; }
+  let jamTxt = "";
+  if(jam){
+    const endD = fDay(JAM.end), early = fDay(JAM.end - 6*864e5), lastDay = fDay(JAM.end - 864e5);
+    jamTxt = {
+      go:`Lance l'HDV maintenant : il coûte moitié prix et se construit 2× plus vite. Plus tôt il finit, plus tu poses de nouveaux bâtiments à -50 % avant le ${endD}. Si tu as un Livre des bâtiments, c'est le seul cas où l'utiliser pendant le Jam vaut le coup : il débloque tout de suite tes nouveautés à prix réduit.`,
+      almost:`Finis ce qui manque à -50 % maintenant. Si c'est bouclé vers le ${early}, monte d'HDV ensuite pour profiter des nouveautés en promo. Sinon, lance tes améliorations les plus longues le ${lastDay} et monte après le Jam.`,
+      stay:`Mets le Jam sur ce qui coûte le plus cher et prend le plus de temps : héros et labo d'abord. Les murs aussi sont à -50 % : vide ton surplus d'or et d'élixir dedans.`,
+      max:`Finis un maximum à -50 % avant le ${endD}. Ensuite, garde tes marteaux, livres et potions pour la sortie de l'HDV19 (attendue mi ou fin novembre, pas encore confirmée), et remplis tes stockages.`
+    }[v.st];
+  }
+  return `<section class="card stack" aria-labelledby="vt">
+    <div class="card-h"><span class="eyebrow">Quand monter d'HDV ?</span><span class="badge">Objectif : ${GOALS[p.goal].name}</span></div>
+    <div class="verdict">
+      <div class="gauge" role="img" aria-label="Préparation ${v.score} sur 100">
+        <svg width="132" height="132" viewBox="0 0 132 132"><circle cx="66" cy="66" r="54" fill="none" stroke="var(--surface-2)" stroke-width="12"/>
+        <circle cx="66" cy="66" r="54" fill="none" stroke="${col}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 66 66)"/></svg>
+        <div class="val"><div><b>${v.score}</b><span>prêt / 100</span></div></div>
+      </div>
+      <div class="stack" style="gap:8px">
+        <h2 id="vt" class="v-title ${v.st}">${title}</h2>
+        <p>${sub}</p>
+      </div>
+    </div>
+    ${jamTxt ? `<div class="note jam"><b>Spécial Hammer Jam.</b> ${jamTxt}</div>` : ""}
+  </section>`;
+}
+
+function barsCard(p){
+  const v = verdict(p);
+  const rows = v.rows.map(r => {
+    const cls = r.met ? "" : (r.t - r.v > 0.2 ? "bad" : "warn");
+    return `<div class="bar-row"><span>${r.label}</span>
+      <div class="track" aria-hidden="true"><div class="fill ${cls}" style="width:${Math.round(r.v*100)}%"></div>${r.t > 0 ? `<div class="tick" style="left:calc(${Math.round(r.t*100)}% - 1px)" title="Objectif"></div>` : ""}</div>
+      <span class="bar-val">${pct(r.v)} <small>/ ${r.t > 0 ? pct(r.t) : "libre"}</small></span></div>`;
+  }).join("");
+  return `<section class="card"><div class="card-h"><h2>Ce qui te retient</h2><span class="small muted">Le trait noir = objectif avant de monter</span></div><div class="bars">${rows}</div></section>`;
+}
+
+function targetsHtml(c, p){
+  if(c.modes.includes("farm") && !c.modes.includes("war")) return `<p class="small muted">Compo de farm : l'objectif, c'est les ressources, pas les 3 étoiles.</p>`;
+  if(!fitsTh(c, p.th)) return `<p class="small muted">Pas adaptée à ton HDV ${p.th} (prévue pour HDV ${c.th[0]}${c.th[1] !== c.th[0] ? "–" + c.th[1] : ""}).</p>`;
+  return `<div class="targets">` + targets(c, p).map(r => `<div class="tg ${r.cls}"><div class="vs">vs HDV ${r.E}</div>${stars(r.stars)}<div class="lab">${r.lab}</div></div>`).join("") + `</div>`;
+}
+
+function renderPlan(){
+  const p = state.p, tasks = buildTasks(p).slice(0,3), c = compoById(p.mainCompo);
+  const top = tasks.map(x => `<li><div><b>${x.title}</b><div class="small muted">${x.why}</div>${x.jam ? '<div class="chips"><span class="chip jam">À lancer pendant le Jam</span></div>' : ""}</div></li>`).join("");
+  return exampleBar() + appliedNote() + `<div class="cols">${verdictCard(p)}
+    <section class="card stack"><div class="card-h"><h2>Tes 3 prochaines actions</h2><a href="#ameliorations" class="small">Tout le plan</a></div>
+      <ol class="steps">${top || "<li><div>Tout est au max pour ton HDV. Bravo !</div></li>"}</ol></section></div>
+    <div class="cols">${barsCard(p)}
+      <section class="card stack"><div class="card-h"><div><span class="eyebrow">Ta compo principale</span><h2>${c.name}</h2></div>${diffDots(c.diff)}</div>
+        <p class="small muted">Ce que tu peux viser avec ton niveau actuel :</p>${targetsHtml(c, p)}
+        <div><button class="btn" data-act="open-compo" data-id="${c.id}">Voir l'armée et le plan d'attaque</button></div>
+      </section></div>`;
+}
+
+/* Village (questionnaire) */
+const STEPS = ["HDV & objectif","Héros","Attaque","Défense"];
+function segHtml(key, labels, val){
+  return `<div class="seg" role="group">` + LEVELS.map((lv,i) => `<button type="button" data-act="seg" data-k="${key}" data-v="${lv}" aria-pressed="${Math.abs(val-lv) < .05}">${labels[i]}</button>`).join("") + `</div>`;
+}
+function renderVillage(){
+  const p = state.p, t = p.th, s = state.step;
+  let body = "";
+  if(s === 0){
+    body = `<div class="field"><span class="lbl">Ton hôtel de ville</span><div class="th-grid">` +
+      Object.keys(CAPS).map(n => `<button type="button" class="th-btn" data-act="th" data-v="${n}" aria-pressed="${+n === t}"><span>HDV</span><b>${n}</b></button>`).join("") + `</div></div>
+      <div class="field"><span class="lbl">Ton objectif</span><div class="opts">` +
+      Object.keys(GOALS).map(k => `<button type="button" class="opt" data-act="goal" data-v="${k}" aria-pressed="${p.goal === k}"><b>${GOALS[k].name}</b><span>${GOALS[k].desc}</span></button>`).join("") + `</div></div>
+      <div class="field"><span class="lbl">Ouvriers disponibles</span><div class="seg" role="group">` +
+      [5,6].map(n => `<button type="button" data-act="builders" data-v="${n}" aria-pressed="${p.builders === n}">${n} ouvriers</button>`).join("") + `</div><span class="small muted">Le 6e vient de B.O.B (base des ouvriers).</span></div>
+      <label class="check" style="width:max-content;max-width:100%"><input type="checkbox" id="goldPass" data-act="goldPass" ${p.goldPass ? "checked" : ""}> J'ai le Pass Or ce mois-ci</label>`;
+  } else if(s === 1){
+    body = `<p class="muted small">Entre le niveau actuel de chaque héros. Le maximum affiché est celui de l'HDV ${t}.</p><div>` +
+      heroesFor(t).map(h => { const cap = CAPS[t][h.id], v = p.heroes[h.id] || 0; return `<div class="hero-row">
+        <div class="hero-name"><b>${h.name}</b><span>max ${cap}</span></div>
+        <input type="range" id="r-${h.id}" min="0" max="${cap}" value="${v}" data-hero="${h.id}" aria-label="${h.name}">
+        <input type="number" id="n-${h.id}" min="0" max="${cap}" value="${v}" data-hero="${h.id}" aria-label="${h.name}, niveau">
+        <span class="pct" id="p-${h.id}">${pct(v/cap)}</span></div>`; }).join("") + `</div>`;
+  } else if(s === 2){
+    const opts = COMPOS.filter(c => fitsTh(c, t) && c.modes.includes("war"));
+    body = `<div class="field"><span class="lbl">Laboratoire : tes troupes et sorts</span>${segHtml("lab", LAB_LBL, p.lab)}<span class="small muted">Pense surtout aux troupes de ta compo principale.</span></div>
+      <div class="field"><label for="mainCompo">Ta compo principale</label><select id="mainCompo" data-act="compo">` +
+      opts.map(c => `<option value="${c.id}" ${c.id === p.mainCompo ? "selected" : ""}>${c.name} (${c.type})</option>`).join("") + `</select></div>
+      <div class="field"><span class="lbl">Bâtiments d'attaque déjà au max</span><div class="checks">` +
+      OFFB.filter(b => t >= b.min).map(b => `<label class="check"><input type="checkbox" id="off-${b.id}" data-off="${b.id}" ${p.off[b.id] ? "checked" : ""}> ${b.name}</label>`).join("") + `</div></div>`;
+  } else {
+    body = `<div class="field"><span class="lbl">Défenses clés de l'HDV ${t}</span><span class="small muted">${TH[t].key.join(", ")}${TH[t].news.length ? " · nouveautés : " + TH[t].news.join(", ") : ""}</span>${segHtml("keyDef", LEVEL_LBL, p.keyDef)}</div>
+      <div class="field"><span class="lbl">Défenses classiques</span><span class="small muted">Canons, tours d'archers, mortiers, DCA, tours de sorciers, tesla…</span>${segHtml("baseDef", LEVEL_LBL, p.baseDef)}</div>
+      <div class="field"><span class="lbl">Pièges</span>${segHtml("traps", LEVEL_LBL, p.traps)}</div>
+      <div class="field"><span class="lbl">Murs</span>${segHtml("walls", LEVEL_LBL, p.walls)}</div>`;
+  }
+  const im = state.importMsg;
+  const syncTxt = state.sync === "cloud" ? '<span class="status ok">Enregistré sur ton compte : tu le retrouves sur tous tes appareils.</span>' :
+    '<span class="status">Enregistré sur cet appareil.</span>';
+  return `<p class="note">Plus rapide : <a href="#screens">envoie des captures de ton village</a>, l'appli remplit le questionnaire pour toi.</p>
+    <details class="import" ${im ? "open" : ""}><summary>Importer depuis le jeu (bêta)</summary>
+      <div class="stack" style="margin-top:10px">
+        <p class="small">Dans Clash of Clans : <b>Paramètres → Plus de paramètres → export des données du village</b> (option ajoutée en juin 2025). Le jeu copie un texte : colle-le ici. On récupère ton HDV, tes héros et tes murs, tu complètes le reste.</p>
+        <label for="importText" class="small muted">Données exportées</label>
+        <textarea id="importText" placeholder='{"tag":"#…","buildings":[…],"heroes":[…]}'></textarea>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" data-act="import">Importer</button>${im ? `<span class="msg ${im.ok ? "ok" : "err"}">${im.text}</span>` : ""}</div>
+      </div></details>
+    <section class="card stack">
+      <nav class="stepper" aria-label="Étapes">${STEPS.map((x,i) => `<button type="button" data-act="step" data-v="${i}" aria-current="${i === s ? "step" : "false"}">${i+1}. ${x}</button>`).join("")}</nav>
+      <h2>${STEPS[s]}</h2>
+      ${body}
+      <div class="form-foot">${syncTxt}<div style="display:flex;gap:8px">
+        ${s > 0 ? `<button class="btn ghost" data-act="step" data-v="${s-1}">Précédent</button>` : ""}
+        ${s < 3 ? `<button class="btn primary" data-act="step" data-v="${s+1}">Suivant</button>` : `<a class="btn primary" href="#plan">Voir mon plan</a>`}
+      </div></div>
+    </section>`;
+}
+
+/* Améliorations */
+function renderUpgrades(){
+  const p = state.p, tasks = buildTasks(p), alloc = allocate(p, tasks), jam = jamActive();
+  const list = tasks.map((x,i) => `<div class="task"><span class="rank ${i < 3 ? "top" : ""}">${i+1}</span><div>
+      <div class="task-title">${x.title}</div><div class="small muted">${x.why}</div>
+      <div class="chips"><span class="chip cat">${x.cat}</span>${x.builder ? "" : '<span class="chip">Sans ouvrier</span>'}${x.jam ? '<span class="chip jam">Long : idéal à -50 %</span>' : ""}</div></div></div>`).join("");
+  const lab = tasks.find(x => x.id === "lab");
+  const bl = alloc.map((x,i) => `<div class="bld"><span class="who">Ouvrier ${i+1}</span><span>${x ? x.title : '<span class="muted">Libre : pièges ou défense rapide</span>'}</span></div>`).join("") +
+    `<div class="bld"><span class="who">Labo</span><span>${lab ? compoById(p.mainCompo).research[0] + " puis " + compoById(p.mainCompo).research.slice(1).join(", ") : "Tout est au max"}</span></div>`;
+  let jamPlan = "";
+  if(jam){
+    const e = JAM.end;
+    jamPlan = `<section class="card stack"><div class="card-h"><h2>Plan Hammer Jam</h2><span class="state live">fin ${fDayTime(e)}</span></div>
+      <div class="timeline">
+        <div class="tl"><span class="when">Jusqu'au ${fDay(e - 3*864e5)}</span><div>Enchaîne les améliorations courtes et moyennes pour en faire un maximum à -50 %. Récolte souvent : collecteurs et extracteurs produisent 2× plus.</div></div>
+        <div class="tl"><span class="when">${fDay(e - 2*864e5)} → ${fDay(e)}</span><div>Lance tes améliorations les plus longues sur <b>tous</b> les ouvriers, plus une longue recherche au labo, juste avant ${fmt(e,{hour:"2-digit",minute:"2-digit"})} le ${fDay(e)}. La réduction reste acquise même après la fin.</div></div>
+        <div class="tl"><span class="when">Après</span><div>Livres et marteaux : utilise-les sur des améliorations à prix plein, ils valent 2× plus.</div></div>
+      </div>
+      <div class="note small">Potions d'ouvrier : bonnes pendant le Jam (plus d'améliorations à -50 % dans le même temps). Échange tes médailles LDC contre elles.${p.goldPass ? " Ton Pass Or se cumule avec le Jam." : ""}</div></section>`;
+  }
+  return exampleBar() + `<div class="cols">
+    <section class="card"><div class="card-h"><h2>Ordre des améliorations</h2><span class="small muted">HDV ${p.th} · ${GOALS[p.goal].name}</span></div>${list || "<p>Tout est au max pour ton HDV.</p>"}</section>
+    <div class="stack" style="gap:18px;align-content:start">
+      <section class="card stack"><div class="card-h"><h2>Tes ${p.builders} ouvriers maintenant</h2></div><div class="builders">${bl}</div></section>
+      ${jamPlan}
+      <section class="card stack"><h3>Règles qui ne changent jamais</h3>
+        <ul class="tips" style="columns:1">
+          <li>Un ouvrier qui ne travaille pas, c'est du temps perdu. Garde-les tous occupés, même sur un piège.</li>
+          <li>Le labo ne doit jamais être vide : c'est souvent lui qui bloque la montée d'HDV.</li>
+          <li>Attaque d'abord, défense ensuite : héros, labo, camps et château de clan avant les défenses.</li>
+          <li>Garde au moins 1 héros toujours en amélioration, idéalement tous.</li>
+          <li>Les murs se montent sans ouvrier : c'est là que va le surplus de ressources.</li>
+        </ul></section>
+    </div></div>`;
+}
+
+/* Compos */
+function renderCompos(){
+  const p = state.p, f = state.filt, t = f.th || p.th;
+  const list = COMPOS.filter(c => fitsTh(c, t) && (f.mode === "all" || c.modes.includes(f.mode)) && (f.type === "all" || c.type === f.type));
+  const chip = (k, v, l) => `<button type="button" data-act="filt" data-k="${k}" data-v="${v}" aria-pressed="${f[k] === v}">${l}</button>`;
+  const cards = list.map(c => {
+    const open = !!state.open[c.id], isMain = c.id === p.mainCompo;
+    return `<article class="card compo ${open ? "open" : ""}" id="compo-${c.id}">
+      <div class="compo-h"><div><h3>${c.name}</h3><div class="alias">${c.alias}</div></div>${isMain ? '<span class="main-flag">Ma compo</span>' : ""}</div>
+      <div class="chips" style="margin-top:0"><span class="chip cat">${c.type}</span><span class="chip">HDV ${c.th[0]}${c.th[1] !== c.th[0] ? "–" + c.th[1] : ""}</span><span class="chip">${c.modes.includes("war") ? "Guerre / LDC" : "Farm"}</span><span class="chip">Difficulté ${diffDots(c.diff)}</span></div>
+      ${targetsHtml(c, p)}
+      ${open ? `<div class="detail">
+        <dl class="kit">
+          <div><dt>Armée</dt><dd><ul>${c.army.map(x => `<li>${x}</li>`).join("")}</ul></dd></div>
+          <div><dt>Sorts</dt><dd><ul>${c.spells.map(x => `<li>${x}</li>`).join("")}</ul></dd></div>
+          <div><dt>Machine de siège</dt><dd>${c.siege}</dd></div>
+          <div><dt>Château de clan</dt><dd>${c.cc}</dd></div>
+          <div><dt>Héros</dt><dd>${c.heroes}</dd></div>
+          <div><dt>Recherche labo prioritaire</dt><dd>${c.research.join(", ")}</dd></div>
+        </dl>
+        <div class="stack"><h3>Plan d'attaque</h3><ol class="steps">${c.plan.map(x => `<li><div>${x}</div></li>`).join("")}</ol>
+          <div class="note small"><b>Brille contre :</b> ${c.best}<br><b>À éviter contre :</b> ${c.avoid}</div></div>
+      </div>` : ""}
+      <div class="compo-foot"><button class="linkbtn" data-act="toggle" data-id="${c.id}" aria-expanded="${open}">${open ? "Masquer le détail" : "Voir l'armée et le plan"}</button>
+        ${fitsTh(c, p.th) && c.modes.includes("war") && !isMain ? `<button class="btn" data-act="main" data-id="${c.id}">En faire ma compo</button>` : ""}</div>
+    </article>`;
+  }).join("");
+  return `<section class="card stack">
+      <div class="card-h"><h2>Compos &amp; stratégies</h2><span class="small muted">Les estimations d'étoiles dépendent de tes héros et de ton labo</span></div>
+      <div class="filters">
+        <label class="small" for="filtTh"><b>HDV</b></label>
+        <select id="filtTh" data-act="filtTh">${Object.keys(CAPS).map(n => `<option value="${n}" ${+n === t ? "selected" : ""}>HDV ${n}${+n === p.th ? " (le mien)" : ""}</option>`).join("")}</select>
+        <div class="seg" role="group" aria-label="Mode">${chip("mode","all","Tout")}${chip("mode","war","Guerre / LDC")}${chip("mode","farm","Farm")}</div>
+        <div class="seg" role="group" aria-label="Type">${chip("type","all","Tous")}${chip("type","Sol","Sol")}${chip("type","Air","Air")}${chip("type","Hybride","Hybride")}</div>
+      </div>
+    </section>
+    <div class="compo-grid">${cards || '<p class="muted">Aucune compo pour ces filtres.</p>'}</div>
+    <section class="card stack"><h2>Pour faire plus d'étoiles</h2>
+      <ul class="tips">
+        <li><b>Repère 30 secondes avant d'attaquer :</b> troupes du château de clan, cases vides (pièges), mode des Infernos et des Scattershots, position du Monolithe et de l'Aigle.</li>
+        <li><b>L'entonnoir avant tout :</b> nettoie les deux côtés de ton entrée avant d'envoyer le gros de l'armée, sinon elle part sur les bords.</li>
+        <li><b>Capacités des héros :</b> déclenche-les quand ils ont perdu la moitié de leur vie, pas avant.</li>
+        <li><b>Gel :</b> quelques secondes seulement. Gèle quand la défense tire sur ton groupe, pas avant qu'il arrive.</li>
+        <li><b>Maîtrise 1 ou 2 compos</b> plutôt que d'en essayer dix : la régularité fait les 3 étoiles.</li>
+        <li><b>Entraîne-toi en défi amical</b> sur les bases de ton clan et regarde les replays des meilleurs attaquants.</li>
+        <li><b>En LDC,</b> prends une base où tu es sûr du 3 étoiles plutôt qu'un 2 étoiles sur un HDV au-dessus, sauf si ton clan en a besoin.</li>
+        <li><b>Méta HDV16 à 18 (2026) :</b> Root Riders, charges RC et Hydra reviennent dans tous les guides. Aucune compo ne passe partout : choisis selon la faiblesse de la base.</li>
+      </ul></section>`;
+}
+
+/* Événements */
+function renderEvents(){
+  const n = NOW();
+  const rows = EVENTS.map(e => {
+    let dates, st;
+    if(e.start){
+      const s = Date.parse(e.start), en = Date.parse(e.end);
+      dates = `${fDay(s)} → ${fDay(en)}`;
+      st = n < s ? `<span class="state soon">dans ${left(s)}</span>` : n < en ? `<span class="state live">En cours</span>` : `<span class="state past">Terminé</span>`;
+    } else { dates = e.when; st = ""; }
+    const flags = (e.rumor ? '<span class="state rumor">Non confirmé</span> ' : "") + (e.approx ? '<span class="chip">dates approx.</span>' : "");
+    return `<div class="ev"><div><div class="dates">${dates}</div>${st}</div><div><b>${e.name}</b> ${flags}<div class="small muted" style="margin-top:2px">${e.what}</div></div></div>`;
+  }).join("");
+  return `<div class="cols">
+    <section class="card"><div class="card-h"><h2>Novembre 2026</h2><span class="small muted">Heures affichées dans ton fuseau</span></div><div class="ev-list">${rows}</div></section>
+    <div class="stack" style="gap:18px;align-content:start">
+      <section class="card stack"><h3>Bien jouer le Hammer Jam</h3>
+        <ul class="tips" style="columns:1">
+          <li>Courtes améliorations au début, les plus longues juste avant la fin (${jamActive() ? fDayTime(JAM.end) : "le dernier jour"}).</li>
+          <li>Garde livres et marteaux pour après : pendant le Jam ils valent 2× moins.</li>
+          <li>Seule exception : un Livre des bâtiments sur l'HDV, pour poser les nouveautés à -50 % avant la fin.</li>
+          <li>Dépense tes médailles LDC en potions d'ouvrier.</li>
+          <li>Tu es HDV18 ? Remplis tes stockages et garde potions et marteaux pour l'HDV19.</li>
+        </ul></section>
+      <section class="card stack"><h3>Ce qui existe déjà</h3>
+        <div class="res">
+          <a href="https://www.clash.ninja" target="_blank" rel="noopener"><b>Clash Ninja</b><span class="small">Suivi de toutes tes améliorations, avec import du village depuis le jeu.</span></a>
+          <a href="https://blueprintcoc.com" target="_blank" rel="noopener"><b>Blueprint CoC</b><span class="small">Liens d'armées et guides par HDV, mis à jour à chaque saison.</span></a>
+          <a href="https://supercell.com/en/games/clashofclans/blog/" target="_blank" rel="noopener"><b>Blog officiel</b><span class="small">Dates d'événements, patch notes et sortie de l'HDV19.</span></a>
+        </div></section>
+    </div></div>`;
+}
+
+/* ---------- Analyse de screens ---------- */
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const SCAN_KEY = "coach-hdv-scan-v1";
+const KEY_KEY = "coach-hdv-apikey";
+const scan = { mode:null, sample:null, ok:null, lim:null, shots:[], status:"idle", msg:null, result:null, ctl:null, t0:0, timer:null, applied:false,
+  thHint: state.p.isExample ? 0 : state.p.th, key: (() => { try { return localStorage.getItem(KEY_KEY) || ""; } catch(e){ return ""; } })() };
+const maskKey = k => k.length > 14 ? k.slice(0, 10) + "…" + k.slice(-4) : "…";
+
+/* Hors de claude.ai : appel direct à l'API Claude avec la clé du joueur */
+const SDK_URLS = ["https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.137.0/+esm", "https://esm.sh/@anthropic-ai/sdk@0.137.0"];
+let sdkPromise = null;
+function loadSdk(){
+  if(!sdkPromise) sdkPromise = (async () => {
+    let last;
+    for(const u of SDK_URLS){ try { const m = await import(u); const A = m.default || m.Anthropic; if(A) return A; } catch(e){ last = e; } }
+    sdkPromise = null; throw last || new Error("sdk");
+  })();
+  return sdkPromise;
+}
+async function toBase64Jpeg(blob){
+  const bmp = await createImageBitmap(blob);
+  const k = Math.min(1, 1568 / Math.max(bmp.width, bmp.height));
+  const cv = document.createElement("canvas");
+  cv.width = Math.round(bmp.width * k); cv.height = Math.round(bmp.height * k);
+  cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height);
+  return cv.toDataURL("image/jpeg", 0.86).split(",")[1];
+}
+function parseJsonLoose(text){
+  const t = text.trim();
+  try { return JSON.parse(t); } catch(e){}
+  const f = t.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if(f){ try { return JSON.parse(f[1]); } catch(e){} }
+  const a = t.indexOf("{"), b = t.lastIndexOf("}");
+  if(a >= 0 && b > a){ try { return JSON.parse(t.slice(a, b + 1)); } catch(e){} }
+  throw { code:"invalid_json" };
+}
+const apiMsg = e => (e && e.error && e.error.error && e.error.error.message) || (e && e.message) || "erreur inconnue";
+async function apiScan(signal){
+  let Anthropic;
+  try { Anthropic = await loadSdk(); }
+  catch(e){ throw { code:"api", text:"Impossible de charger le module Claude. Vérifie ta connexion puis relance." }; }
+  const images = [];
+  for(const s of scan.shots) images.push({ type:"image", source:{ type:"base64", media_type:"image/jpeg", data: await toBase64Jpeg(s.blob) } });
+  if(signal.aborted) throw { code:"cancelled" };
+  const client = new Anthropic({ apiKey: scan.key, dangerouslyAllowBrowser: true });
+  let msg;
+  try {
+    msg = await client.beta.messages.create({
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      output_config: { effort: "medium" },
+      messages: [{ role: "user", content: [...images, { type: "text", text: buildScanPrompt() }] }]
+    }, { signal });
+  } catch(e){
+    if(e instanceof Anthropic.APIUserAbortError) throw { code:"cancelled" };
+    if(e instanceof Anthropic.AuthenticationError) throw { code:"api", text:"Clé API refusée. Vérifie-la, ou crée une nouvelle clé sur console.anthropic.com." };
+    if(e instanceof Anthropic.PermissionDeniedError) throw { code:"api", text:"Cette clé n'a pas accès à ce modèle. Vérifie ton compte sur console.anthropic.com." };
+    if(e instanceof Anthropic.RateLimitError) throw { code:"rate_limited" };
+    if(e instanceof Anthropic.BadRequestError) throw { code:"api", text:"L'API a refusé la demande : " + apiMsg(e) };
+    if(e instanceof Anthropic.InternalServerError) throw { code:"api", text:"Le service Claude est surchargé ou en panne. Réessaie dans quelques minutes." };
+    if(e instanceof Anthropic.APIConnectionError) throw { code:"api", text:"Impossible de joindre l'API d'Anthropic. Vérifie ta connexion." };
+    throw { code:"api", text:"Erreur de l'API : " + apiMsg(e) };
+  }
+  if(msg.stop_reason === "refusal") throw { code:"refused" };
+  const text = (msg.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+  if(!text.trim()) throw { code:"empty_completion" };
+  return parseJsonLoose(text);
+}
+try { const s = localStorage.getItem(SCAN_KEY); if(s){ scan.result = cleanScan(JSON.parse(s)); scan.status = "done"; } } catch(e){}
+const lvlLabel = (v, labels) => labels[LEVELS.indexOf(snapLevel(v))];
+const HIDE_CODES = ["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed","images_unavailable"];
+
+async function initSample(){
+  const c = window.claude;
+  if(!c || typeof c.use !== "function"){ scan.mode = "api"; scan.ok = true; if(state.tab === "screens") render(); return; }
+  scan.mode = "claude";
+  try {
+    const s = await c.use("sample");
+    if(s){
+      const lim = await s.limits().catch(() => null);
+      scan.sample = s; scan.lim = lim && lim.images ? lim.images : null;
+    }
+    scan.ok = !!(scan.sample && scan.lim);
+  } catch(e){ scan.ok = false; }
+  if(state.tab === "screens") render();
+}
+
+async function prepImage(f){
+  const types = scan.lim ? scan.lim.mediaTypes : ["image/jpeg","image/png","image/webp","image/gif"];
+  const maxB = scan.lim ? scan.lim.maxInputBytes : 20e6;
+  if(types.includes(f.type) && f.size <= maxB) return f;
+  try {
+    const bmp = await createImageBitmap(f);
+    const k = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+    const cv = document.createElement("canvas");
+    cv.width = Math.round(bmp.width * k); cv.height = Math.round(bmp.height * k);
+    cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height);
+    return await new Promise(res => cv.toBlob(b => res(b), "image/jpeg", 0.88));
+  } catch(e){ return null; }
+}
+async function addFiles(files){
+  if(scan.status === "running") return;
+  files = files.filter(f => f && f.type && f.type.startsWith("image/"));
+  scan.msg = null;
+  if(!files.length){ scan.msg = {err:true, text:"Ajoute des images : des captures d'écran du jeu en PNG ou JPEG."}; render(); return; }
+  const max = scan.lim ? scan.lim.maxCount : 6;
+  for(const f of files){
+    if(scan.shots.length >= max){ scan.msg = {err:true, text:`${max} images maximum par analyse : les suivantes n'ont pas été ajoutées.`}; break; }
+    const blob = await prepImage(f);
+    if(!blob){ scan.msg = {err:true, text:`« ${f.name || "image"} » n'a pas pu être lue. Essaie une capture PNG ou JPEG.`}; continue; }
+    scan.shots.push({ id: Math.random().toString(36).slice(2), blob, url: URL.createObjectURL(blob), name: f.name || "capture" });
+  }
+  render();
+}
+
+function buildScanPrompt(){
+  const p = state.p, T = TARGETS[p.goal];
+  const caps = Object.keys(CAPS).map(t => `HDV${t} : ` + HEROES.filter(h => CAPS[t][h.id] != null).map(h => `${h.id}=${CAPS[t][h.id]}`).join(", ")).join("\n");
+  const marks = Object.keys(TH).map(t => `HDV${t} : nouveautés ${TH[t].news.join(", ")} ; défenses clés ${TH[t].key.join(", ")} ; murs max niv. ${WALLCAP[t]}`).join("\n");
+  return [
+`Tu es un expert de Clash of Clans (novembre 2026, HDV max = 18). Le joueur t'envoie ${scan.shots.length} capture(s) d'écran de son village principal. L'interface du jeu peut être en français ou en anglais.`,
+`Ta mission : lire ce qui est visible pour remplir son profil, puis lui dire s'il peut monter d'HDV.`,
+`HDV : ${scan.thHint ? `le joueur dit être HDV${scan.thHint} (vérifie si c'est visible)` : "à détecter (niveau affiché quand on touche l'hôtel de ville, apparence du bâtiment, ou bâtiments présents : Monolithe = HDV15+, Gardiens = HDV18)"}. Objectif du joueur : ${GOALS[p.goal].name}.`,
+jamActive() ? `Événement en cours : Hammer Jam, -50 % sur le coût et le temps des améliorations (or, élixir, élixir noir) jusqu'au ${fDayTime(JAM.end)}. Tiens-en compte dans tes conseils.` : "",
+`Héros (identifiants) : bk = Roi des barbares (Barbarian King), aq = Reine des archers (Archer Queen), mp = Prince des sbires (Minion Prince), gw = Grand gardien (Grand Warden), rc = Championne royale (Royal Champion), dd = Duc dragon (Dragon Duke).`,
+`Niveaux max des héros par HDV :\n${caps}`,
+`Repères par HDV :\n${marks}`,
+`Seuils de l'appli avant de monter d'HDV (objectif ${GOALS[p.goal].name}) : héros en moyenne ≥ ${pct(T.heroes)} du max, aucun héros sous ${pct(T.heroMin)}, labo ≥ ${pct(T.lab)}, bâtiments d'attaque ≥ ${pct(T.off)}, défenses clés ≥ ${pct(T.keyDef)}, défenses classiques ≥ ${pct(T.baseDef)}, pièges ≥ ${pct(T.traps)}, murs ≥ ${pct(T.walls)}.`,
+`Règles :
+- N'invente rien : si une info n'est pas lisible sur les captures, mets null.
+- Niveaux de héros : seulement s'ils sont lisibles (Hall des héros, fiche du héros, badge de niveau).
+- lab, keyDef, baseDef, traps, walls : part déjà au max pour cet HDV, à choisir parmi 0.1, 0.4, 0.6, 0.8, 1 ; null sans indice visuel suffisant. Pour les murs, estime la part de murs au niveau max d'après leur apparence.
+- off : true si le bâtiment semble au max pour cet HDV, false s'il ne l'est clairement pas, null si tu ne sais pas. Clés : camps (camps militaires), cc (château de clan), barracks (casernes et usines à sorts), forge, workshop (atelier), pets (animalerie).
+- Textes en français, en tutoyant le joueur, phrases courtes et concrètes.`,
+`Réponds uniquement avec un objet JSON de cette forme (types entre chevrons) :
+{"th": <entier 1-18 ou null>, "confiance": <"haute" | "moyenne" | "basse">, "heroes": {"bk": <entier ou null>, "aq": <…>, "mp": <…>, "gw": <…>, "rc": <…>, "dd": <…>}, "lab": <0.1|0.4|0.6|0.8|1|null>, "keyDef": <idem>, "baseDef": <idem>, "traps": <idem>, "walls": <idem>, "off": {"camps": <true|false|null>, "cc": <…>, "barracks": <…>, "forge": <…>, "workshop": <…>, "pets": <…>}, "seen": [<1 phrase par capture : ce que tu y lis>], "weak": [<points faibles visibles>], "verdict": <2 à 3 phrases : peut-il monter d'HDV maintenant, et pourquoi>, "next": [<3 à 5 actions prioritaires concrètes>], "missing": [<captures à ajouter pour une analyse plus sûre>]}`
+  ].filter(Boolean).join("\n\n");
+}
+
+function cleanScan(r){
+  r = (r && typeof r === "object" && !Array.isArray(r)) ? r : {};
+  const num = (v, lo, hi) => { if(v === null || v === undefined || v === "") return null; const n = parseInt(v, 10); return isFinite(n) && n >= lo && n <= hi ? n : null; };
+  const frac = v => { if(v === null || v === undefined || v === "") return null; const n = +v; return isFinite(n) ? snapLevel(clamp(n, 0, 1)) : null; };
+  const bool = v => v === true ? true : v === false ? false : null;
+  const arr = v => Array.isArray(v) ? v.filter(x => typeof x === "string" && x.trim()).slice(0, 8).map(x => x.slice(0, 300)) : [];
+  const heroes = {}, off = {}, rh = r.heroes || {}, ro = r.off || {};
+  HEROES.forEach(h => { heroes[h.id] = num(rh[h.id], 0, 130); });
+  OFFB.forEach(b => { off[b.id] = bool(ro[b.id]); });
+  return { th: num(r.th, 1, 18), conf: ["haute","moyenne","basse"].includes(r.confiance || r.conf) ? (r.confiance || r.conf) : "moyenne",
+    heroes, off, lab: frac(r.lab), keyDef: frac(r.keyDef), baseDef: frac(r.baseDef), traps: frac(r.traps), walls: frac(r.walls),
+    seen: arr(r.seen), weak: arr(r.weak), next: arr(r.next), missing: arr(r.missing),
+    verdict: typeof r.verdict === "string" ? r.verdict.slice(0, 700) : "" };
+}
+function mergeScan(p, r){
+  const q = clone(p);
+  const th = r.th && r.th >= 7 ? r.th : (scan.thHint || null);
+  if(th) q.th = th;
+  HEROES.forEach(h => { if(r.heroes[h.id] != null) q.heroes[h.id] = r.heroes[h.id]; });
+  ["lab","keyDef","baseDef","traps","walls"].forEach(k => { if(r[k] != null) q[k] = r[k]; });
+  OFFB.forEach(b => { if(r.off[b.id] != null) q.off[b.id] = r.off[b.id]; });
+  return normalize(q);
+}
+function scanErr(code){
+  return ({
+    not_granted:"Tu n'as pas autorisé l'appli à utiliser Claude. Tu peux remplir le questionnaire à la main.",
+    sampling_disabled:"Claude n'est pas disponible sur ce compte.",
+    not_declared:"L'analyse n'est pas disponible sur cette version de l'appli.",
+    capability_disabled:"L'analyse n'est pas disponible dans cette vue.",
+    capability_removed:"L'analyse n'est pas disponible dans cette vue.",
+    images_unavailable:"L'envoi d'images n'est pas disponible ici.",
+    image_rejected:"Une image a été refusée (format, taille ou nombre). Essaie avec des captures PNG ou JPEG.",
+    rate_limited:"Trop de demandes pour le moment. Réessaie dans quelques minutes.",
+    session_expired:"Ta session a expiré : reconnecte-toi à claude.ai puis réessaie.",
+    refused:"Ces images n'ont pas pu être analysées. Essaie avec des captures du jeu.",
+    invalid_json:"La réponse était illisible. Relance l'analyse.",
+    empty_completion:"Pas de réponse. Relance l'analyse, avec moins d'images si besoin.",
+    prompt_too_large:"Trop d'infos d'un coup : retire quelques images."
+  })[code] || "La connexion a été interrompue. Relance l'analyse.";
+}
+async function runScan(fresh){
+  if(!scan.shots.length || scan.status === "running") return;
+  if(scan.mode === "claude" ? !scan.sample : !scan.key) return;
+  const ctl = new AbortController(), had = scan.result;
+  Object.assign(scan, { status:"running", msg:null, ctl, t0:NOW(), applied:false });
+  render();
+  scan.timer = setInterval(() => { const el = document.getElementById("scanElapsed"); if(el) el.textContent = Math.round((NOW() - scan.t0) / 1000) + " s"; }, 1000);
+  try {
+    const raw = scan.mode === "claude"
+      ? await scan.sample.json(buildScanPrompt(), { images: scan.shots.map(s => s.blob), signal: ctl.signal, cache: fresh ? false : true })
+      : await apiScan(ctl.signal);
+    scan.result = cleanScan(raw);
+    try { localStorage.setItem(SCAN_KEY, JSON.stringify(Object.assign({}, scan.result, {confiance: scan.result.conf}))); } catch(e){}
+  } catch(e){
+    const code = e && e.code;
+    if(code !== "cancelled") scan.msg = {err:true, text:(e && e.code === "api" && e.text) || scanErr(code)};
+    if(scan.mode === "claude" && HIDE_CODES.includes(code)) scan.ok = false;
+    scan.result = had;
+  } finally {
+    clearInterval(scan.timer); scan.ctl = null;
+    scan.status = scan.result ? "done" : "idle";
+  }
+  if(state.tab === "screens"){
+    render();
+    if(!scan.msg){ const el = document.getElementById("scanResult"); if(el) el.scrollIntoView({block:"start"}); }
+  }
+}
+function appliedNote(){
+  return scan.applied ? `<div class="note">Plan mis à jour avec tes screens. Les infos qui n'étaient pas visibles se corrigent dans <a href="#village">Mon village</a>.</div>` : "";
+}
+
+function renderScreens(){
+  const lim = scan.lim, running = scan.status === "running";
+  const msg = scan.msg ? `<p class="msg ${scan.msg.err ? "err" : "ok"}">${esc(scan.msg.text)}</p>` : "";
+  let upload;
+  if(scan.ok === false){
+    upload = `<section class="card stack"><h2>Analyse de screens</h2>
+      <p>L'analyse d'images n'est pas disponible ici. Elle fonctionne quand tu ouvres l'appli sur claude.ai (navigateur ou appli Claude), connecté à ton compte, et que tu l'autorises à utiliser Claude.</p>${msg}
+      <div><a class="btn" href="#village">Remplir le questionnaire à la place</a></div></section>`;
+  } else {
+    const thumbs = scan.shots.length ? `<div class="thumbs">` + scan.shots.map(s => `<figure class="thumb"><img src="${s.url}" alt="${esc(s.name)}"><button type="button" data-act="rmshot" data-id="${s.id}" aria-label="Retirer ${esc(s.name)}" ${running ? "disabled" : ""}>×</button></figure>`).join("") + `</div>` : "";
+    const api = scan.mode === "api", needKey = api && !scan.key;
+    const keyBox = !api ? "" : scan.key
+      ? `<p class="small muted">Analyse avec ta clé API Anthropic (${esc(maskKey(scan.key))}) · <button class="linkbtn" data-act="forgetkey">Oublier la clé</button></p>`
+      : `<div class="note stack" style="gap:8px">
+          <p><b>Il faut une clé API Anthropic pour analyser tes screens.</b> C'est payé à l'usage : compte environ 5 à 15 centimes par analyse.</p>
+          <ol class="small" style="margin:0;padding-left:18px"><li>Crée un compte sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> et ajoute un peu de crédit.</li><li>Dans « API keys », crée une clé.</li><li>Colle-la ici.</li></ol>
+          <div class="scan-actions"><input type="password" id="apiKey" placeholder="sk-ant-…" autocomplete="off" spellcheck="false" aria-label="Clé API Anthropic" style="flex:1 1 220px;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px"><button class="btn" data-act="savekey">Enregistrer</button></div>
+          <p class="small muted">Ta clé reste dans ce navigateur et n'est envoyée qu'à l'API d'Anthropic.</p>
+        </div>`;
+    const actions = running
+      ? `<div class="scan-actions"><span class="spinner" aria-hidden="true"></span><span>Analyse en cours… <span id="scanElapsed" class="num">0 s</span></span><button class="btn ghost" data-act="stopscan">Arrêter</button></div>
+         <p class="small muted">Compte 20 secondes à 1 minute.${api ? "" : " Si une fenêtre te demande d'autoriser Claude, accepte-la."}</p>`
+      : `${keyBox}<div class="scan-actions"><button class="btn primary" data-act="scan" ${!scan.shots.length || scan.ok !== true || needKey ? "disabled" : ""}>Analyser mes screens</button>${scan.shots.length ? `<button class="btn ghost" data-act="clearshots">Tout retirer</button>` : ""}${scan.ok === null ? `<span class="small muted">Connexion à Claude…</span>` : ""}</div>`;
+    upload = `<section class="card stack">
+      <div class="card-h"><h2>Envoie tes screens</h2><span class="small muted">${lim ? lim.maxCount + " images max par analyse" : ""}</span></div>
+      <label class="drop" id="drop" for="shotInput">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>
+        <b>Choisir mes captures</b><span class="small muted">ou glisse-les ici, ou colle-les (Ctrl+V)</span>
+      </label>
+      <input type="file" id="shotInput" accept="${lim ? lim.mediaTypes.join(",") + "," : ""}image/*" multiple hidden>
+      ${thumbs}
+      <div class="field"><label for="thHint">Ton HDV, si tu le connais</label><select id="thHint" data-act="thHint" ${running ? "disabled" : ""}><option value="0">Le détecter sur les captures</option>${Object.keys(CAPS).map(n => `<option value="${n}" ${+n === scan.thHint ? "selected" : ""}>HDV ${n}</option>`).join("")}</select></div>
+      ${actions}${msg}
+    </section>`;
+  }
+  const guide = `<section class="card stack"><h2>Quels screens envoyer ?</h2>
+    <ol class="steps">
+      <li><div><b>Tes héros</b><div class="small muted">L'écran du Hall des héros, ou la fiche de chaque héros : le niveau doit être lisible.</div></div></li>
+      <li><div><b>Le village entier</b><div class="small muted">Dézoome au maximum : on voit l'HDV, les défenses et la couleur des murs.</div></div></li>
+      <li><div><b>Le laboratoire</b><div class="small muted">La liste des troupes et des sorts avec leurs niveaux.</div></div></li>
+      <li><div><b>L'hôtel de ville</b><div class="small muted">Touche-le pour afficher son niveau, si tu veux être sûr de l'HDV.</div></div></li>
+    </ol>
+    <p class="note small">${scan.mode === "api" ? "Tes images partent directement à l'API d'Anthropic avec ta clé, le temps de l'analyse." : "Tes images partent à Claude avec ton compte claude.ai le temps de l'analyse (ça compte dans ton utilisation)."} L'appli ne les garde pas : seul le résultat est conservé.</p>
+  </section>`;
+  return `<div class="cols">${upload}${guide}</div>` + scanResultHtml();
+}
+
+function scanResultHtml(){
+  const r = scan.result;
+  if(!r) return "";
+  const base = state.p, m = mergeScan(base, r), t = m.th;
+  const keep = txt => `<span class="muted">non visible · on garde ${esc(txt)}${base.isExample ? " (exemple)" : ""}</span>`;
+  const rows = [], unknown = [];
+  let thCell;
+  if(r.th) thCell = `HDV ${r.th}` + (r.th < 7 ? ` <span class="muted">(l'appli commence à l'HDV7)</span>` : scan.thHint && scan.thHint !== r.th ? ` <span class="muted">(tu avais indiqué ${scan.thHint})</span>` : "");
+  else if(scan.thHint) thCell = `HDV ${scan.thHint} <span class="muted">(indiqué par toi)</span>`;
+  else { thCell = keep("HDV " + base.th); unknown.push("HDV"); }
+  rows.push(["Hôtel de ville", thCell]);
+  heroesFor(t).forEach(h => {
+    const cap = CAPS[t][h.id], v = r.heroes[h.id];
+    if(v == null){ rows.push([h.name, keep("niv. " + m.heroes[h.id])]); unknown.push(h.short); return; }
+    const shown = Math.min(v, cap);
+    rows.push([h.name, `<span class="num">${shown} / ${cap}</span> · ${pct(shown / cap)}` + (v > cap ? ` <span class="muted">(lu ${v}, au-dessus du max de l'HDV ${t} ?)</span>` : "")]);
+  });
+  [["lab","Laboratoire",LAB_LBL],["keyDef","Défenses clés",LEVEL_LBL],["baseDef","Défenses classiques",LEVEL_LBL],["traps","Pièges",LEVEL_LBL],["walls","Murs au max",LEVEL_LBL]].forEach(([k,label,L]) => {
+    if(r[k] != null) rows.push([label, lvlLabel(r[k], L)]);
+    else { rows.push([label, keep(lvlLabel(m[k], L))]); unknown.push(label.toLowerCase()); }
+  });
+  const offSeen = OFFB.filter(b => t >= b.min && r.off[b.id] != null);
+  rows.push(["Bâtiments d'attaque", offSeen.length ? offSeen.map(b => `${b.name} : ${r.off[b.id] ? "max" : "pas max"}`).join("<br>") : keep("tes réponses actuelles")]);
+  const list = (title, arr) => arr.length ? `<div><h3>${title}</h3><ul class="tips" style="columns:1;margin-top:6px">${arr.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : "";
+  return `<div class="cols" id="scanResult">
+    <section class="card stack">
+      <div class="card-h"><h2>Ce que j'ai lu</h2><span class="badge">Confiance ${esc(r.conf)}</span></div>
+      <table class="read"><tbody>${rows.map(([a,b]) => `<tr><th scope="row">${a}</th><td>${b}</td></tr>`).join("")}</tbody></table>
+      ${unknown.length ? `<p class="note small">Pas visible sur tes captures : ${unknown.join(", ")}. Ajoute un screen ou complète ces infos dans « Mon village » pour un verdict précis.</p>` : ""}
+      ${list("Sur tes captures", r.seen)}
+      <div class="scan-actions"><button class="btn primary" data-act="applyscan">Appliquer à mon village</button><a class="btn" href="#village">Corriger à la main</a>${scan.ok === true ? `<button class="btn ghost" data-act="rescan" ${scan.status === "running" || !scan.shots.length ? "disabled" : ""}>Relancer l'analyse</button>` : ""}</div>
+    </section>
+    <div class="stack" style="gap:18px;align-content:start">
+      ${verdictCard(m)}
+      <section class="card stack"><h2>L'avis du coach</h2>
+        ${r.verdict ? `<p>${esc(r.verdict)}</p>` : ""}
+        ${list("Points faibles", r.weak)}${list("À faire en premier", r.next)}${list("Pour une analyse plus sûre", r.missing)}
+      </section>
+    </div></div>`;
+}
+
+/* ---------- Import ---------- */
+function parseExport(text){
+  let j;
+  try { j = JSON.parse(text.trim()); }
+  catch(e){ const a = text.indexOf("{"), b = text.lastIndexOf("}"); if(a < 0 || b <= a) throw new Error("bad"); j = JSON.parse(text.slice(a, b+1)); }
+  const blds = Array.isArray(j.buildings) ? j.buildings : [];
+  const thB = blds.find(x => x && x.data === 1000001);
+  const th = thB && thB.lvl ? clamp(thB.lvl, 1, 18) : null;
+  const H = {28000000:"bk", 28000001:"aq", 28000002:"gw", 28000004:"rc", 28000006:"mp", 28000007:"dd"};
+  const heroes = {};
+  (Array.isArray(j.heroes) ? j.heroes : []).forEach(h => { if(h && H[h.data]) heroes[H[h.data]] = +h.lvl || 0; });
+  let walls = null;
+  const w = blds.filter(x => x && x.data === 1000010);
+  if(th && th >= 7 && w.length){
+    const tot = w.reduce((a,x) => a + (x.cnt || 1), 0), top = w.filter(x => x.lvl >= WALLCAP[th]).reduce((a,x) => a + (x.cnt || 1), 0);
+    walls = tot ? top / tot : null;
+  }
+  return { th, heroes, walls };
+}
+function snapLevel(v){ return LEVELS.reduce((a,b) => Math.abs(b-v) < Math.abs(a-v) ? b : a); }
+
+/* ---------- Sauvegarde ---------- */
+let cloudRef = null, writing = false, again = false, cloudTimer = null;
+function persist(){
+  state.p.isExample = false;
+  state.p.updatedAt = NOW();
+  saveLocal(state.p);
+  if(cloudRef){ clearTimeout(cloudTimer); cloudTimer = setTimeout(flushCloud, 900); }
+}
+async function flushCloud(){
+  if(!cloudRef) return;
+  if(writing){ again = true; return; }
+  writing = true;
+  try { await cloudRef.set({ profile: clone(state.p), savedAt: NOW() }); setSync("cloud"); }
+  catch(e){ if(e && (e.code === "invalid_argument" || e.code === "revoked" || e.code === "not_granted")){ cloudRef = null; setSync("local"); } }
+  writing = false;
+  if(again){ again = false; flushCloud(); }
+}
+function setSync(s){ if(state.sync === s) return; state.sync = s; if(state.tab === "village") render(); }
+async function initCloud(){
+  const c = window.claude;
+  if(!c || typeof c.use !== "function") return;
+  try {
+    const [user, db] = await Promise.all([c.use("user"), c.use("db")]);
+    if(!user || !db) return;
+    const id = await user.id();
+    if(!id) return;
+    const ref = db.doc("data/users/" + id + "/village");
+    const snap = await Promise.race([ref.get(), new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 10000))]);
+    cloudRef = ref;
+    if(snap.exists){
+      const d = snap.data();
+      if(d && d.profile && (d.profile.updatedAt || 0) > (state.p.updatedAt || 0)){ state.p = normalize(clone(d.profile)); saveLocal(state.p); }
+      state.sync = "cloud"; render();
+    } else if(!state.p.isExample){ flushCloud(); }
+  } catch(e){ /* reste en local */ }
+}
+
+/* ---------- Événements UI ---------- */
+function setTab(t){ state.tab = t; render(); }
+const TABS = ["plan","screens","village","ameliorations","compos","evenements"];
+function fromHash(){ const h = (location.hash || "").slice(1); setTab(TABS.includes(h) ? h : "plan"); }
+window.addEventListener("hashchange", () => { fromHash(); window.scrollTo(0,0); });
+$("#vchip").addEventListener("click", () => { location.hash = "village"; });
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]");
+  if(!b) return;
+  const act = b.dataset.act, p = state.p;
+  if(act === "th"){ p.th = +b.dataset.v; state.p = normalize(p); persist(); render(); }
+  else if(act === "goal"){ p.goal = b.dataset.v; persist(); render(); }
+  else if(act === "builders"){ p.builders = +b.dataset.v; persist(); render(); }
+  else if(act === "seg"){ p[b.dataset.k] = +b.dataset.v; persist(); render(); }
+  else if(act === "step"){ state.step = +b.dataset.v; render(); window.scrollTo(0,0); }
+  else if(act === "toggle"){ state.open[b.dataset.id] = !state.open[b.dataset.id]; render(); }
+  else if(act === "main"){ p.mainCompo = b.dataset.id; persist(); render(); }
+  else if(act === "open-compo"){ state.open[b.dataset.id] = true; state.filt.th = null; location.hash = "compos"; setTimeout(() => { const el = document.getElementById("compo-" + b.dataset.id); if(el) el.scrollIntoView({block:"start"}); }, 30); }
+  else if(act === "filt"){ state.filt[b.dataset.k] = b.dataset.v; render(); }
+  else if(act === "scan"){ runScan(false); }
+  else if(act === "rescan"){ runScan(true); }
+  else if(act === "stopscan"){ if(scan.ctl) scan.ctl.abort(); }
+  else if(act === "rmshot"){ const i = scan.shots.findIndex(s => s.id === b.dataset.id); if(i >= 0){ URL.revokeObjectURL(scan.shots[i].url); scan.shots.splice(i,1); } scan.msg = null; render(); }
+  else if(act === "clearshots"){ scan.shots.forEach(s => URL.revokeObjectURL(s.url)); scan.shots = []; scan.msg = null; render(); }
+  else if(act === "savekey"){
+    const v = (($("#apiKey") || {}).value || "").trim();
+    if(!/^sk-ant-[\w-]{20,}$/.test(v)){ scan.msg = {err:true, text:"Ça ne ressemble pas à une clé API Anthropic : elle commence par sk-ant-."}; render(); return; }
+    scan.key = v; scan.msg = {err:false, text:"Clé enregistrée sur cet appareil."};
+    try { localStorage.setItem(KEY_KEY, v); } catch(e){ scan.msg = {err:true, text:"Clé gardée pour cette visite seulement : ton navigateur bloque l'enregistrement."}; }
+    render();
+  }
+  else if(act === "forgetkey"){ scan.key = ""; try { localStorage.removeItem(KEY_KEY); } catch(e){} scan.msg = null; render(); }
+  else if(act === "applyscan"){ if(scan.result){ state.p = mergeScan(state.p, scan.result); persist(); scan.applied = true; scan.thHint = state.p.th; location.hash = "plan"; } }
+  else if(act === "import"){
+    const txt = ($("#importText") || {}).value || "";
+    try {
+      const r = parseExport(txt);
+      if(!r.th){ state.importMsg = {ok:false, text:"Je n'ai pas trouvé l'HDV dans ce texte. Vérifie que tu as collé l'export complet."}; }
+      else if(r.th < 7){ state.importMsg = {ok:false, text:`HDV ${r.th} détecté : l'appli commence à l'HDV7.`}; }
+      else {
+        p.th = r.th; Object.assign(p.heroes, r.heroes);
+        if(r.walls != null) p.walls = snapLevel(r.walls);
+        state.p = normalize(p); persist();
+        const nh = Object.keys(r.heroes).length;
+        state.importMsg = {ok:true, text:`Importé : HDV ${r.th}, ${nh} héros${r.walls != null ? ", murs " + pct(r.walls) + " au max" : ""}. Complète le labo et les défenses.`};
+        state.step = 1;
+      }
+    } catch(err){ state.importMsg = {ok:false, text:"Texte illisible. Copie à nouveau l'export depuis le jeu, puis colle-le tel quel."}; }
+    render();
+  }
+});
+document.addEventListener("change", e => {
+  const el = e.target, p = state.p;
+  if(el.dataset.act === "goldPass"){ p.goldPass = el.checked; persist(); renderChrome(); }
+  else if(el.dataset.off){ p.off[el.dataset.off] = el.checked; persist(); renderChrome(); }
+  else if(el.dataset.act === "compo"){ p.mainCompo = el.value; persist(); }
+  else if(el.dataset.act === "filtTh"){ state.filt.th = +el.value; render(); }
+  else if(el.id === "shotInput"){ const fs = Array.from(el.files || []); el.value = ""; addFiles(fs); }
+  else if(el.dataset.act === "thHint"){ scan.thHint = +el.value; }
+});
+document.addEventListener("input", e => {
+  const el = e.target, id = el.dataset && el.dataset.hero;
+  if(!id) return;
+  const cap = CAPS[state.p.th][id];
+  let v = parseInt(el.value, 10); if(!isFinite(v)) return;
+  v = clamp(v, 0, cap);
+  state.p.heroes[id] = v;
+  const r = document.getElementById("r-" + id), n = document.getElementById("n-" + id), pc = document.getElementById("p-" + id);
+  if(r && el !== r) r.value = v;
+  if(n && el !== n) n.value = v;
+  if(pc) pc.textContent = pct(v / cap);
+  persist(); renderChrome();
+});
+
+fromHash();
+setInterval(renderStrip, 30000);
+initCloud();
+initSample();
+
+/* Glisser-déposer et coller des captures */
+document.addEventListener("dragover", e => {
+  if(state.tab !== "screens" || scan.ok === false) return;
+  e.preventDefault();
+  const el = document.getElementById("drop");
+  if(el) el.classList.toggle("over", !!(e.target.closest && e.target.closest("#drop")));
+});
+document.addEventListener("dragleave", e => { const el = document.getElementById("drop"); if(el && !e.relatedTarget) el.classList.remove("over"); });
+document.addEventListener("drop", e => {
+  if(state.tab !== "screens" || scan.ok === false) return;
+  e.preventDefault();
+  const el = document.getElementById("drop"); if(el) el.classList.remove("over");
+  if(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) addFiles(Array.from(e.dataTransfer.files));
+});
+document.addEventListener("paste", e => {
+  if(state.tab !== "screens" || scan.ok === false) return;
+  const fs = Array.from((e.clipboardData && e.clipboardData.files) || []).filter(f => f.type && f.type.startsWith("image/"));
+  if(fs.length){ e.preventDefault(); addFiles(fs); }
+});
+})();
+</script>
+</body>
+</html>
